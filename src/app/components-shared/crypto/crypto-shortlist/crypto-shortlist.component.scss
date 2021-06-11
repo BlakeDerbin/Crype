@@ -1,0 +1,71 @@
+table {
+  width: 100%;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+.mat-card {
+  padding: 0 !important;
+  background-color: #656D78;
+}
+
+.cell-negative {
+  color: #ff0000;
+}
+
+.cell-positive {
+  color: #00ff00;
+}
+
+.currencySelect {
+  margin-left: 1%;
+  margin-top: 1%;
+  margin-bottom: -2%;
+}
+
+.cryptoIcon {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  margin-top: -4px;
+}
+
+.cryptoTable {
+  width: border-box;
+  td:nth-child(1) {
+    width:5%;
+  }
+  td:nth-child(2) {
+    width:11%;
+  }
+  td:nth-child(3) {
+    width:9%;
+  }
+  td:nth-child(4) {
+    width:9%;
+  }
+  td:nth-child(5) {
+    width:9%;
+  }
+  td:nth-child(6) {
+    width:9%;
+  }
+  td:nth-child(7) {
+    width:9%;;
+    padding-left: 1.5%;
+  }
+  td:nth-child(8) {
+    width:12%;
+  }
+  td:nth-child(9) {
+    width:9%;
+  }
+  td:nth-child(10) {
+    width:9%;
+  }
+  td:nth-child(11) {
+    width:9%;
+  }
+}

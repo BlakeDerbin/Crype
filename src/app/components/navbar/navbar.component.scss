@@ -1,0 +1,19 @@
+.navbar-buttons {
+  .mat-icon-button::ng-deep {
+    margin: 0 15% 0 15%;
+    color: #ffffff;
+  }
+}
+
+.navbar-title::ng-deep {
+  margin: 0 1% 0 0.5%;
+  color: #ffffff;
+}
+
+.mat-toolbar::ng-deep {
+  background: #656D78;
+}
+
+#button-title {
+  margin-left: 10%;
+}
