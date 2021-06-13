@@ -1,0 +1,51 @@
+.title {
+  color: white;
+  font-size: large;
+}
+
+#description {
+  color: white;
+  font-size: 1em;
+}
+
+.todo-row {
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
+.todo-col-1 {
+  flex-direction: column;
+  box-sizing: border-box;
+  display: flex;
+  width: 50%;
+}
+
+.todo-col-2 {
+  flex-direction: column;
+  box-sizing: border-box;
+  display: flex;
+  width: 50%;
+}
+
+.content {
+  margin-left: 2% !important;
+  margin-right: 2% !important;
+}
+
+//.apexcharts-tooltip.apexcharts-theme-light{
+//  background: #ff0001 !important;
+//}
+
+
+
+.chartContainer {
+  padding-right: 1%;
+  .apexcharts-tooltip.apexcharts-theme-light.active {
+    background: #606060;
+    color: #ffffff;
+  }
+}
+
