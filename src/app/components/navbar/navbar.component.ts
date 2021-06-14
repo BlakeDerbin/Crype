@@ -7,9 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
+  selectedCurrency: string;
+  currencyUSD = "USD";
+  currencyAUD = "AUD";
+
   constructor() { }
 
   ngOnInit(): void {
+    this.selectedCurrency = this.currencyUSD;
+  }
+
+  changeCurrency(currency: string) {
+    console.log(currency)
+    this.selectedCurrency = currency
   }
 
 }

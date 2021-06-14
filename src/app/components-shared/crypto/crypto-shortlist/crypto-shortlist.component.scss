@@ -7,16 +7,8 @@ th.mat-sort-header-sorted {
 }
 
 .mat-card {
-  padding: 0 !important;
-  background-color: #656D78;
-}
-
-.cell-negative {
-  color: #ff0000;
-}
-
-.cell-positive {
-  color: #00ff00;
+  padding: 0.5% !important;
+  border-radius: 0.3%;
 }
 
 .currencySelect {
@@ -68,4 +60,7 @@ th.mat-sort-header-sorted {
   td:nth-child(11) {
     width:9%;
   }
+}
+.mat-row:hover .mat-cell {
+  border-color: #ffffff;
 }

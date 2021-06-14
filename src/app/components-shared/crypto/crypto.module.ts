@@ -6,14 +6,19 @@ import { CommonModule } from "@angular/common";
 import { MaterialModules } from "../modules/material-module";
 import { CryptoRoutingModule } from "./crypto-routing.module";
 import { NgApexchartsModule } from "ng-apexcharts";
+import { CryptoPerformersComponent } from './crypto-performers/crypto-performers.component';
 
 @NgModule({
   declarations: [
     CryptoComponent,
     CryptoShortlistComponent,
-    CryptoDetailsComponent
+    CryptoDetailsComponent,
+    CryptoPerformersComponent
   ],
-  exports: [],
+  exports: [
+    CryptoPerformersComponent,
+    CryptoShortlistComponent
+  ],
   imports: [
     CommonModule,
     CryptoRoutingModule,

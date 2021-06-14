@@ -1,10 +1,10 @@
-<mat-card>
+<mat-card class="body-content">
   <!--  <h3>{{cryptoDetails.name}}</h3>-->
   <!--  <h2>Price : {{(cryptoDetails.current_price| cryptoConvert:'btc': 'AUD') | currency}</h2>-->
   <br>
-  <div class="content">
-    <div fxLayout="column" class="todo-row">
-      <div fxFlex class="todo-col-1">
+  <div>
+    <div fxLayout="column" class="row">
+      <div fxFlex class="col-1">
         <h3 class="title">
           <img src="{{this.thumbnail}}" alt="{{this.name}} crypto icon">
           {{this.name}}
@@ -14,7 +14,7 @@
           <h5>Market Rank: {{this.market_rank}}</h5>
         </h5>
       </div>
-      <div fxFlex class="todo-col-2">
+      <div fxFlex class="col-2">
         <h3>Details</h3>
         <a href="{{this.home_page}}">{{this.name}} Website</a>
         <a href="{{this.subbreddit}}">{{this.name}} Subreddit</a>

@@ -1,0 +1,10 @@
+﻿@import '~@angular/material/theming';
+@include mat-core();
+
+$crype-primary: mat-palette($mat-blue-grey);
+$crype-accent:  mat-palette($mat-light-blue, A200, A100, A400);
+$crype-warn: mat-palette($mat-red);
+
+$crype-app-theme: mat-dark-theme($crype-primary, $crype-accent, $crype-warn);
+
+@include  angular-material-theme($crype-app-theme);

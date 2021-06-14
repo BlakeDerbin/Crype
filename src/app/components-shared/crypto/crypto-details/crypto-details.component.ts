@@ -29,6 +29,11 @@ export type ChartOptions = {
 
 };
 
+export type chartSparkline = {
+  date: Date;
+  vale: number;
+};
+
 @Component({
   selector: 'app-crypto-details',
   templateUrl: './crypto-details.component.html',
@@ -49,14 +54,75 @@ export class CryptoDetailsComponent implements OnInit {
   home_page: any;
   subbreddit: any;
   current_price: number;
+  chart_data = new Array<chartSparkline>();
 
 
   constructor(
     private route: ActivatedRoute,
     private cryptoService: CryptoControllerService,
     private location: Location
-  ) {
+  ) { }
+
+  ngOnInit(): void {
+    this.getCryptoDetails();
+  }
+
+  getDateForChartData() {
+    // sparkline data is for 7 days
+    //get the date, in format "2014-01-02" and increment each day after 24 steps,
+    //store in chart_data array under date and iterate 168 times
+  }
+
+  getCryptoDetails(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    console.log("route id: ", id)
+    this.cryptoService.getCryptoDetails(id).subscribe((data) => {
+      this.details = data;
+      console.log(this.details);
+      this.assignApiData(this.details);
+    });
+  }
+
+  assignApiData(val: any) {
+    this.chart_data = val.market_data.sparkline_7d.price;
+    this.id = val.id;
+    this.name = val.name;
+    this.description = val.description.en;
+    this.thumbnail = val.image.thumb;
+    this.ath = val.market_data.ath.usd;
+    this.market_rank = val.market_cap_rank;
+    this.home_page = val.links.homepage[0];
+    this.subbreddit = val.links.subreddit_url;
+    this.current_price = val.market_data.current_price.usd;
+
+    console.log(this.chart_data)
+
+    //this.insertParagraphOnDescription(this.cryptoDescription);
+
+    // Description set on HTML from here, needed as description must be inserted as html because of links embedded
+    let desc = document.getElementById("description")
+    desc.insertAdjacentHTML('beforebegin', this.description);
+
     this.initChartData()
+  }
+
+  insertParagraphOnDescription(val: any) {
+    let i = 0;
+    // count the number of times a period occurs
+    let periodMatchCount = val.match(/\./g);
+    console.log(periodMatchCount)
+
+    for(i; i < periodMatchCount.length; i++) {
+      let percentMatch = Math.round((i / val.length * 100)* 100) / 100
+
+      if(percentMatch < 0.50 && percentMatch > 0.45)
+      {
+        var test = this.description.match(/\./g).split('.');
+        console.log(test)
+        console.log("insert br here")
+        console.log(i)
+      }
+    }
   }
 
   public initChartData(): void {
@@ -70,7 +136,7 @@ export class CryptoDetailsComponent implements OnInit {
     this.chartOptions = {
       series: [
         {
-          name: "XYZ MOTORS",
+          name: this.name,
           data: dates
         }
       ],
@@ -151,68 +217,17 @@ export class CryptoDetailsComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    this.getCryptoDetails();
-  }
-
-  getCryptoDetails(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    console.log("route id: ", id)
-    this.cryptoService.getCryptoDetails(id).subscribe((data) => {
-      this.details = data;
-      console.log(this.details);
-      this.assignApiData(this.details);
-    });
-  }
-
   public generateDayWiseTimeSeries(baseval, count, yrange) {
     var i = 0;
     var series = [];
     while (i < count) {
       var y =
-        Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
+          Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
 
       series.push([baseval, y]);
       baseval += 86400000;
       i++;
     }
     return series;
-  }
-
-  assignApiData(val: any) {
-    this.id = val.id;
-    this.name = val.name;
-    this.description = val.description.en;
-    this.thumbnail = val.image.thumb;
-    this.ath = val.market_data.ath.usd;
-    this.market_rank = val.market_cap_rank;
-    this.home_page = val.links.homepage[0];
-    this.subbreddit = val.links.subreddit_url;
-    this.current_price = val.market_data.current_price.usd;
-
-    //this.insertParagraphOnDescription(this.cryptoDescription);
-
-    // Description set on HTML from here, needed as description must be inserted as html because of links embedded
-    let desc = document.getElementById("description")
-    desc.insertAdjacentHTML('beforebegin', this.description);
-  }
-
-  insertParagraphOnDescription(val: any) {
-    let i = 0;
-    // count the number of times a period occurs
-    let periodMatchCount = val.match(/\./g);
-    console.log(periodMatchCount)
-
-    for(i; i < periodMatchCount.length; i++) {
-      let percentMatch = Math.round((i / val.length * 100)* 100) / 100
-
-      if(percentMatch < 0.50 && percentMatch > 0.45)
-      {
-        var test = this.description.match(/\./g).split('.');
-        console.log(test)
-        console.log("insert br here")
-        console.log(i)
-      }
-    }
   }
 }

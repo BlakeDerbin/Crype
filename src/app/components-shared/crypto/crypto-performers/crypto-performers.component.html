@@ -1,0 +1,30 @@
+<mat-card>
+  <div fxLayout="column" class="row" >
+    <div fxFlex class="col" *ngFor="let element of cryptoData">
+
+      <mat-card class="inner-card">
+        <div fxLayout="column" class="row">
+          <div fxFlex class="col-inner-1">
+            <img class="cryptoIcon" src={{element.image}} alt="sd">
+          </div>
+
+          <div fxFlex class="col-inner-2">
+            <span>{{element.name}}</span>
+            <span>Market cap: {{element.market_cap_rank}}</span>
+            <span>Current price: {{element.current_price | currency}}</span>
+            <span>24hr change:
+              <span [ngClass]="{
+                          'cell-negative': element.market_cap_change_percentage_24h < 0,
+                          'cell-positive': element.market_cap_change_percentage_24h > 0
+                        }"
+              >
+              {{element.market_cap_change_percentage_24h | number:'1.0-2'}}%
+              </span>
+            </span>
+          </div>
+        </div>
+      </mat-card>
+
+    </div>
+  </div>
+</mat-card>
