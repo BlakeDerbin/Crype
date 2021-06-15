@@ -40,10 +40,15 @@ export class CryptoShortlistComponent implements OnInit {
   //using observable get data from api
   getData() {
     this.subscription = this.service.getMarketData().subscribe(data => {
+      console.log("Fetching data...")
       this.dataSource.data = data;
       this.dataValues = data;
       //this.logData();
-    });
+    },
+      error => {
+        console.log("Data can't be fetched, no connection!")
+      }
+      );
   }
 
   logData() {

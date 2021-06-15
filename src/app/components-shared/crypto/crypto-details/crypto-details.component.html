@@ -1,17 +1,24 @@
 <mat-card class="body-content">
-  <!--  <h3>{{cryptoDetails.name}}</h3>-->
-  <!--  <h2>Price : {{(cryptoDetails.current_price| cryptoConvert:'btc': 'AUD') | currency}</h2>-->
   <br>
+
   <div>
     <div fxLayout="column" class="row">
       <div fxFlex class="col-1">
-        <h3 class="title">
-          <img src="{{this.thumbnail}}" alt="{{this.name}} crypto icon">
-          {{this.name}}
-        </h3>
+          <div class="crypto-rowspan">
+            <img src="{{this.thumbnail}}" alt="{{this.name}} crypto icon">
+            <h3>{{this.name}}</h3>
+          </div>
         <h5>Current price: {{this.current_price | currency}}
           <h5>All time high: {{this.ath | currency}}</h5>
           <h5>Market Rank: {{this.market_rank}}</h5>
+          <h5 class="crypto-rowspan">Price change 24h :
+            <h5
+              [ngClass]="{
+                'cell-negative': this.price_change_24hr < 0,
+                'cell-positive': this.price_change_24hr > 0
+              }"
+            >{{this.price_change_24hr | number:'1.0-2'}}%</h5>
+          </h5>
         </h5>
       </div>
       <div fxFlex class="col-2">
@@ -21,13 +28,15 @@
       </div>
     </div>
 
-    <h3>{{this.name}} overview</h3>
-    <!-- Description is set from TS file  -->
-    <div id="description"></div>
-
+    <div class="crypto-overview">
+      <h3>{{this.name}} overview</h3>
+      <!-- Description is set from TS file  -->
+      <p id="description"></p>
+    </div>
     <br>
-    <h3>{{this.name}} price data</h3>
-    <div class="chartContainer">
+
+    <h3 class="crypto-title">7 day price data</h3>
+    <div class="chartContainer" *ngIf="sparkline_data.length > 0">
       <apx-chart
         [series]="chartOptions.series"
         [chart]="chartOptions.chart"
@@ -38,7 +47,8 @@
         [yaxis]="chartOptions.yaxis"
         [xaxis]="chartOptions.xaxis"
         [tooltip]="chartOptions.tooltip"
-        [autoUpdateSeries]="true"
+        [theme]="chartOptions.theme"
+        [autoUpdateSeries]="false"
       ></apx-chart>
     </div>
   </div>

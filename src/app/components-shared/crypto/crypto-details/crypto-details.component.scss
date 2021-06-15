@@ -1,17 +1,28 @@
-.title {
-  color: white;
-  font-size: large;
+.crypto-rowspan {
+  flex-direction: row;
+  box-sizing: border-box;
+  display: -webkit-box;
+  h3 {
+    padding-left: 2%;
+  }
+  h5 {
+    padding-left: 1%;
+  }
+}
+
+.crypto-title {
+  margin-left: 2%;
 }
 
 a {
-  color: #2f4cff;
+  color: #bfbfbf;
   text-decoration: none;
 }
 
-#description {
-  color: white;
-  font-size: 1em;
-  padding-left: 2%;
+.crypto-overview {
+  margin-left: 2%;
+  margin-right: 2%;
+  ;
 }
 
 .row {
@@ -41,12 +52,6 @@ a {
   margin-right: 2% !important;
 }
 
-//.apexcharts-tooltip.apexcharts-theme-light{
-//  background: #ff0001 !important;
-//}
-
-
-
 .chartContainer {
   padding-right: 1%;
   .apexcharts-tooltip.apexcharts-theme-light.active {
@@ -54,4 +59,3 @@ a {
     color: #ffffff;
   }
 }
-

@@ -1,7 +1,8 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { CryptoControllerService } from 'src/app/components-services/crypto/crypto-controller.service';
+import * as moment from "moment";
 import IcryptoDetails from "src/app/components-services/crypto/IcryptoDetails.model";
 import {
   ApexAxisChartSeries,
@@ -12,9 +13,10 @@ import {
   ApexMarkers,
   ApexYAxis,
   ApexXAxis,
-  ApexTooltip, ChartComponent
+  ApexTooltip, ChartComponent, ApexTheme
 } from "ng-apexcharts";
-import { dataSeries } from "./data-series"
+import {DataRowOutlet} from "@angular/cdk/table";
+import {log} from "util";
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -26,12 +28,7 @@ export type ChartOptions = {
   yaxis: ApexYAxis;
   title: ApexTitleSubtitle;
   tooltip: ApexTooltip;
-
-};
-
-export type chartSparkline = {
-  date: Date;
-  vale: number;
+  theme: ApexTheme;
 };
 
 @Component({
@@ -54,7 +51,10 @@ export class CryptoDetailsComponent implements OnInit {
   home_page: any;
   subbreddit: any;
   current_price: number;
-  chart_data = new Array<chartSparkline>();
+  price_change_24hr: number;
+  sparkline_values: any;
+  sparkline_dates = [];
+  sparkline_data = [];
 
 
   constructor(
@@ -67,24 +67,23 @@ export class CryptoDetailsComponent implements OnInit {
     this.getCryptoDetails();
   }
 
-  getDateForChartData() {
-    // sparkline data is for 7 days
-    //get the date, in format "2014-01-02" and increment each day after 24 steps,
-    //store in chart_data array under date and iterate 168 times
-  }
-
-  getCryptoDetails(): void {
+  private getCryptoDetails(): void {
     const id = this.route.snapshot.paramMap.get('id');
     console.log("route id: ", id)
     this.cryptoService.getCryptoDetails(id).subscribe((data) => {
+      console.log("Getting crypto details data...")
       this.details = data;
       console.log(this.details);
       this.assignApiData(this.details);
-    });
+    },
+      error => {
+        console.log("Data can't be fetched, API offline")
+      }
+      );
   }
 
-  assignApiData(val: any) {
-    this.chart_data = val.market_data.sparkline_7d.price;
+  private assignApiData(val: any) {
+    this.sparkline_values = val.market_data.sparkline_7d.price;
     this.id = val.id;
     this.name = val.name;
     this.description = val.description.en;
@@ -94,16 +93,17 @@ export class CryptoDetailsComponent implements OnInit {
     this.home_page = val.links.homepage[0];
     this.subbreddit = val.links.subreddit_url;
     this.current_price = val.market_data.current_price.usd;
+    this.price_change_24hr = val.market_data.price_change_percentage_24h;
 
-    console.log(this.chart_data)
-
-    //this.insertParagraphOnDescription(this.cryptoDescription);
+    if(this.description === "") {
+      this.description = this.name + " has no overview information available."
+    }
 
     // Description set on HTML from here, needed as description must be inserted as html because of links embedded
     let desc = document.getElementById("description")
-    desc.insertAdjacentHTML('beforebegin', this.description);
+    desc.insertAdjacentHTML('afterbegin', this.description);
 
-    this.initChartData()
+    this.getDateTime();
   }
 
   insertParagraphOnDescription(val: any) {
@@ -125,19 +125,25 @@ export class CryptoDetailsComponent implements OnInit {
     }
   }
 
-  public initChartData(): void {
-    let ts2 = 1484418600000;
-    let dates = [];
-    for (let i = 0; i < 120; i++) {
-      ts2 = ts2 + 86400000;
-      dates.push([ts2, dataSeries[1][i].value]);
+  private getDateTime() {
+    // gets the time by hour for 7 days
+    let day = moment()
+    for(let i = 0; i < 168; i++) {
+      this.sparkline_dates.push(day.add(1,'hours').format())
     }
+    // combines the sparkline arrays into a 2d array for the chart to use
+    for (var i = 0; i < this.sparkline_dates.length; i++) {
+      this.sparkline_data.push( [ this.sparkline_dates[i], this.sparkline_values[i] ] );
+    }
+    this.initChartData();
+  }
 
+  public initChartData(): void {
     this.chartOptions = {
       series: [
         {
           name: this.name,
-          data: dates
+          data: this.sparkline_data
         }
       ],
       chart: {
@@ -146,34 +152,32 @@ export class CryptoDetailsComponent implements OnInit {
         height: 350,
         zoom: {
           type: "x",
-          enabled: true,
+          enabled: false,
           autoScaleYaxis: true
         },
         toolbar: {
-          autoSelected: "zoom"
+          show: false,
+          //autoSelected: "zoom"
         }
       },
       dataLabels: {
         enabled: false,
-        style: {
-          colors: [ '#E91E63', '#9C27B0']
-        }
       },
       markers: {
         size: 0
       },
       title: {
-        //text: "Stock Price Movement",
+        //text: "7 day price (hourly)",
         align: "left",
-        style: {
-          color: "#ffffff"
-        }
+      },
+      theme: {
+        mode: "dark"
       },
       fill: {
         type: "gradient",
         gradient: {
           shadeIntensity: 1,
-          inverseColors: false,
+          inverseColors: true,
           opacityFrom: 0.5,
           opacityTo: 0,
           stops: [0, 90, 100]
@@ -182,52 +186,31 @@ export class CryptoDetailsComponent implements OnInit {
       yaxis: {
         labels: {
           formatter: function (val) {
-            return (val / 1000000).toFixed(0);
+            return "$" + val.toLocaleString();
           },
-          style: {
-            colors: "#ffffff"
-          }
         },
         title: {
-          text: "Price",
-          style: {
-            color: "#ffffff"
-          }
+          //text: "Price",
         }
       },
       xaxis: {
         type: "datetime",
-        labels: {
-          style: {
-            colors: "#ffffff"
-          }
-        }
+        title: {
+          //text: "Data from: " + moment(this.sparkline_dates[0]).format("DD/MM/YY, hh:mma") +
+          //  " to " + moment(this.sparkline_dates[167]).format("DD/MM/YY, hh:mma")
+        },
       },
       tooltip: {
+        x: {
+          show: false,
+        },
         shared: false,
         y: {
           formatter: function (val) {
-            return (val / 1000000).toFixed(0);
+            return "$" + val.toLocaleString()
           }
         },
-        style: {
-
-        }
       }
     }
-  }
-
-  public generateDayWiseTimeSeries(baseval, count, yrange) {
-    var i = 0;
-    var series = [];
-    while (i < count) {
-      var y =
-          Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
-
-      series.push([baseval, y]);
-      baseval += 86400000;
-      i++;
-    }
-    return series;
   }
 }
