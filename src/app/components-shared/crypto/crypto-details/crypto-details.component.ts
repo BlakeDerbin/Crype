@@ -53,6 +53,7 @@ export class CryptoDetailsComponent implements OnInit {
   current_price: number;
   price_change_24hr: number;
   sparkline_values: any;
+  sparkline_dates = [];
   sparkline_data = [];
 
 
@@ -125,15 +126,14 @@ export class CryptoDetailsComponent implements OnInit {
   }
 
   private getDateTime() {
-    // gets the time by hour for a 7 day period
+    // gets the time by hour for 7 days
     let day = moment()
-    let dates = []
     for(let i = 0; i < 168; i++) {
-      dates.push(day.add(1,'hours').format())
+      this.sparkline_dates.push(day.add(1,'hours').format())
     }
     // combines the sparkline arrays into a 2d array for the chart to use
-    for (let i = 0; i < dates.length; i++) {
-      this.sparkline_data.push( [ dates[i], this.sparkline_values[i] ] );
+    for (var i = 0; i < this.sparkline_dates.length; i++) {
+      this.sparkline_data.push( [ this.sparkline_dates[i], this.sparkline_values[i] ] );
     }
     this.initChartData();
   }
