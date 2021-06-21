@@ -4,6 +4,10 @@ import IcryptoMarket, {ImarketData} from "../../../components-services/crypto/Im
 import {CryptoControllerService} from "../../../components-services/crypto/crypto-controller.service";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import {takeUntil} from "rxjs/operators";
+import {
+  cryptoColumnsDesktop,
+  cryptoColumnsMobile
+} from "~app/components-shared/crypto/crypto-shortlist/crypto-shortlist.component";
 
 interface MediaQueryList extends EventTarget {
   matches: boolean; // => true if document matches the passed media query, false if not
@@ -21,6 +25,7 @@ export class CryptoPerformersComponent implements OnInit {
 
   subscription: Subscription;
   cryptoData = new Array<IcryptoMarket>();
+  desktopView: boolean;
 
   //**
   destroyed = new Subject<void>();
@@ -44,6 +49,8 @@ export class CryptoPerformersComponent implements OnInit {
 
   //**
   constructor(public service: CryptoControllerService, public breakpointObserver: BreakpointObserver) {
+    this.desktopView = true;
+
     breakpointObserver.observe([
       Breakpoints.XSmall,
       Breakpoints.Small,
@@ -52,7 +59,12 @@ export class CryptoPerformersComponent implements OnInit {
     ]).pipe(takeUntil(this.destroyed)).subscribe(result => {
       for (const query of Object.keys(result.breakpoints)) {
         if (result.breakpoints[query]) {
-          this.currentScreenSize = this.displayNameMap.get(query) ?? 'Unknown';
+          const q = this.displayNameMap.get(query)
+          if(q == "xSmall" || q == "Small") {
+            this.desktopView = false;
+          } else {
+            this.desktopView = true;
+          }
         }
       }
     });

@@ -31,20 +31,11 @@ a {
   display: flex;
   margin-left: 2%;
   margin-right: 2%;
-}
-
-.col-1 {
-  flex-direction: column;
-  box-sizing: border-box;
-  display: flex;
-  width: 50%;
-}
-
-.col-2 {
-  flex-direction: column;
-  box-sizing: border-box;
-  display: flex;
-  width: 50%;
+  .change-icon::ng-deep {
+    height: 5px;
+    width: 5px;
+    margin-right: 50%;
+  }
 }
 
 .content {
