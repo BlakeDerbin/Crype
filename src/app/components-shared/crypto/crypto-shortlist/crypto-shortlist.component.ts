@@ -35,11 +35,10 @@ export class CryptoShortlistComponent implements OnInit {
   //**
   destroyed = new Subject<void>();
   currentScreenSize: string = 'Large';
-  mobileView: boolean;
   desktopView: boolean;
 
   //**
-  // create a map to display breakpoint names for demo
+  // map for breakpoint names for mobile/desktop view
   displayNameMap = new Map([
     [Breakpoints.XSmall, 'xSmall'],
     [Breakpoints.Small, 'Small'],
@@ -66,11 +65,10 @@ export class CryptoShortlistComponent implements OnInit {
     ]).pipe(takeUntil(this.destroyed)).subscribe(result => {
       for (const query of Object.keys(result.breakpoints)) {
         if (result.breakpoints[query]) {
-          const q = this.displayNameMap.get(query)
-          if(q == "xSmall" || q == "Small") {
+          const view = this.displayNameMap.get(query)
+          if (["xSmall", "Small"].includes(view)) {
             this.desktopView = false;
             this.displayedColumns = cryptoColumnsMobile;
-            this.mobileView = true;
           } else {
             this.displayedColumns = cryptoColumnsDesktop;
             this.desktopView = true;

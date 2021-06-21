@@ -1,20 +1,9 @@
-import {Component, Directive, OnInit} from '@angular/core';
-import {Observable, Subject, Subscribable, Subscription} from "rxjs";
-import IcryptoMarket, {ImarketData} from "../../../components-services/crypto/ImarketData.model";
-import {CryptoControllerService} from "../../../components-services/crypto/crypto-controller.service";
-import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
-import {takeUntil} from "rxjs/operators";
-import {
-  cryptoColumnsDesktop,
-  cryptoColumnsMobile
-} from "~app/components-shared/crypto/crypto-shortlist/crypto-shortlist.component";
-
-interface MediaQueryList extends EventTarget {
-  matches: boolean; // => true if document matches the passed media query, false if not
-  media: string; // => the media query used for the matching
-}
-
-
+import { Component, OnInit } from '@angular/core';
+import { Subject, Subscription} from "rxjs";
+import IcryptoMarket from "../../../components-services/crypto/ImarketData.model";
+import { CryptoControllerService } from "../../../components-services/crypto/crypto-controller.service";
+import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
+import { takeUntil } from "rxjs/operators";
 
 @Component({
   selector: 'app-crypto-performers',
@@ -32,20 +21,13 @@ export class CryptoPerformersComponent implements OnInit {
   currentScreenSize: string = 'Large';
 
   //**
-  // create a map to display breakpoint names for demo
+  // map for breakpoint names for mobile/desktop view
   displayNameMap = new Map([
     [Breakpoints.XSmall, 'xSmall'],
     [Breakpoints.Small, 'Small'],
     [Breakpoints.Medium, 'Medium'],
     [Breakpoints.Large, 'Large'],
   ])
-
-  viewMap = new Map([
-    [Breakpoints.Handset, 'mobile'],
-    [Breakpoints.Web, 'desktop']
-  ])
-
-  isSmallScreen = this.breakpointObserver.isMatched('(max-width: 599px');
 
   //**
   constructor(public service: CryptoControllerService, public breakpointObserver: BreakpointObserver) {
@@ -56,15 +38,12 @@ export class CryptoPerformersComponent implements OnInit {
       Breakpoints.Small,
       Breakpoints.Medium,
       Breakpoints.Large,
+      Breakpoints.XLarge
     ]).pipe(takeUntil(this.destroyed)).subscribe(result => {
       for (const query of Object.keys(result.breakpoints)) {
         if (result.breakpoints[query]) {
-          const q = this.displayNameMap.get(query)
-          if(q == "xSmall" || q == "Small") {
-            this.desktopView = false;
-          } else {
-            this.desktopView = true;
-          }
+          const view = this.displayNameMap.get(query)
+          this.desktopView = !(["xSmall","Small"].includes(view));
         }
       }
     });
@@ -78,29 +57,6 @@ export class CryptoPerformersComponent implements OnInit {
   ngOnDestroy() {
     this.destroyed.next();
     this.destroyed.complete();
-  }
-
-  //switch between mobile and desktop views
-  switchViewMode() {
-    const query = '(orientation: portrait)';
-    const mediaQueryList = window.matchMedia(query);
-
-    // define the callback function for our event listener
-    function listener(mqs: MediaQueryList) {
-      // checks the match
-      if(mqs.matches) {
-        console.log("portrait mode")
-      } else {
-        console.log("landscape mode")
-      }
-    }
-
-    // run check once
-    listener(mediaQueryList);
-
-    // run check on every subsequent change
-    // @ts-ignore
-    mediaQueryList.addEventListener('change', listener);
   }
 
   //using observable get data from api
