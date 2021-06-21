@@ -5,6 +5,7 @@
   //padding-right: 1%;
 }
 
+//Desktop
 .col {
   flex-direction: column;
   box-sizing: content-box;
@@ -22,9 +23,11 @@
     flex-direction: column;
     box-sizing: border-box;
     display: flex;
-    width: 20%;
-    margin-right: 3%;
+    width: 100px;
+    margin-right: 1%;
     img {
+      width: 80px;
+      height: 80px;
       flex-basis: fit-content;
     }
   }
@@ -38,5 +41,45 @@
   }
 }
 
+//mobile
+@media only screen and (max-width: 960px) {
+ .row {
+   flex-direction: row;
+   box-sizing: initial;
+   display: contents;
+   //padding-right: 1%;
+  }
+  .col {
+   flex-direction: column;
+   //box-sizing: content-box;
+   display: inline-block;
+   width: 100%;
+   margin: 0.5%;
+   height: 100%;
+   .inner-card::ng-deep {
+     background-color: #4d4d4d;;
+     padding: 3%;
+     height: 80px;
+   }
+   .col-inner-1 {
+     flex-direction: column;
+     //box-sizing: border-box;
+     display: inline-flex;
+     justify-content: flex-start;
+     width: 15%;
+     img {
+        width: 80%;
+        height: 80%;
+      }
+    }
 
-
+    .col-inner-2 {
+      flex-direction: column;
+      //box-sizing: border-box;
+      display: inline-flex;
+      width: 82%;
+      float: right;
+      //margin-right: 1%;
+    }
+  }
+}
