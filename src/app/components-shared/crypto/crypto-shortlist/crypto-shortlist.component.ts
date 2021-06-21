@@ -1,14 +1,20 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import IcryptoMarket from "../../../components-services/crypto/ImarketData.model";
-import { Subscription } from "rxjs";
+import {Subject, Subscription} from "rxjs";
 import { MatTableDataSource } from "@angular/material/table";
 import { MatSort } from "@angular/material/sort";
 import { CryptoControllerService } from "../../../components-services/crypto/crypto-controller.service";
+import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
+import {takeUntil} from "rxjs/operators";
 
-export const cryptoColumns: string[] = [
+export const cryptoColumnsDesktop: string[] = [
   'market_cap_rank', 'name', 'symbol', 'price_change_percentage_24h',
   'price_change_24h', 'current_price', 'market_cap_change_percentage_24h',
   'market_cap', 'circulating_supply', 'total_supply', 'max_supply', 'id'
+]
+
+export const cryptoColumnsMobile: string[] = [
+  'market_cap_rank', 'symbol', 'price_change_percentage_24h', 'current_price'
 ]
 
 @Component({
@@ -18,12 +24,29 @@ export const cryptoColumns: string[] = [
 })
 export class CryptoShortlistComponent implements OnInit {
 
-  displayedColumns = cryptoColumns;
+  triangleChange = "./../../../shared/style/images/tri_change.svg"
+  displayedColumns: string[];
   selectedCurrency = 'usd';
   selectedCrypto!: IcryptoMarket;
   dataSource = new MatTableDataSource<IcryptoMarket>();
   subscription: Subscription;
   dataValues = new Array<IcryptoMarket>();
+
+  //**
+  destroyed = new Subject<void>();
+  currentScreenSize: string = 'Large';
+  mobileView: boolean;
+  desktopView: boolean;
+
+  //**
+  // create a map to display breakpoint names for demo
+  displayNameMap = new Map([
+    [Breakpoints.XSmall, 'xSmall'],
+    [Breakpoints.Small, 'Small'],
+    [Breakpoints.Medium, 'Medium'],
+    [Breakpoints.Large, 'Large'],
+    [Breakpoints.XLarge, 'xLarge']
+  ])
 
   @ViewChild(MatSort) sort: MatSort;
 
@@ -31,10 +54,40 @@ export class CryptoShortlistComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  constructor(public service: CryptoControllerService) { }
+  constructor(public service: CryptoControllerService, public breakpointObserver: BreakpointObserver) {
+    this.desktopView = true;
+
+    breakpointObserver.observe([
+      Breakpoints.XSmall,
+      Breakpoints.Small,
+      Breakpoints.Medium,
+      Breakpoints.Large,
+      Breakpoints.XLarge
+    ]).pipe(takeUntil(this.destroyed)).subscribe(result => {
+      for (const query of Object.keys(result.breakpoints)) {
+        if (result.breakpoints[query]) {
+          const q = this.displayNameMap.get(query)
+          if(q == "xSmall" || q == "Small") {
+            this.desktopView = false;
+            this.displayedColumns = cryptoColumnsMobile;
+            this.mobileView = true;
+          } else {
+            this.displayedColumns = cryptoColumnsDesktop;
+            this.desktopView = true;
+          }
+        }
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.getData();
+  }
+
+  //**
+  ngOnDestroy() {
+    this.destroyed.next();
+    this.destroyed.complete();
   }
 
   //using observable get data from api

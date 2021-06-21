@@ -9,10 +9,12 @@
 <!--      </mat-select>-->
 <!--    </mat-form-field>-->
 <!--  </span>-->
+  <table
+    mat-table [dataSource]="dataSource"
+    matSort class="cryptoTable"
+  >
 
-  <table mat-table [dataSource]="dataSource" matSort class="cryptoTable">
-
-    <ng-container matColumnDef="name">
+    <ng-container *ngIf="desktopView" matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
       <td
         mat-cell
@@ -44,7 +46,7 @@
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="market_cap_change_percentage_24h">
+    <ng-container *ngIf="desktopView" matColumnDef="market_cap_change_percentage_24h">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Market Cap 24hr Change </th>
       <td mat-cell *matCellDef="let element"
           [ngClass]="{
@@ -52,7 +54,15 @@
           'cell-positive': element.market_cap_change_percentage_24h > 0
         }"
       >
-        {{element.market_cap_change_percentage_24h | number:'1.0-2'}}%
+        <div *ngIf="element.market_cap_change_percentage_24h > 0" fxLayout="row" >
+          <mat-icon class="change-icon" fxFlex="15%">arrow_drop_up</mat-icon>
+          <div fxFlex="85%">{{element.market_cap_change_percentage_24h | number:'1.0-2'}}%</div>
+        </div>
+
+        <div *ngIf="element.market_cap_change_percentage_24h < 0" fxLayout="row" >
+          <mat-icon class="change-icon" fxFlex="15%">arrow_drop_down</mat-icon>
+          <div fxFlex="85%">{{element.market_cap_change_percentage_24h | number:'1.0-2'}}%</div>
+        </div>
       </td>
     </ng-container>
 
@@ -71,7 +81,15 @@
           'cell-positive': element.price_change_percentage_24h > 0
         }"
       >
-        {{(element.price_change_percentage_24h) | number:'1.0-2'}}%
+        <div *ngIf="element.price_change_percentage_24h > 0" fxLayout="row" >
+          <mat-icon class="change-icon" fxFlex="15%">arrow_drop_up</mat-icon>
+          <div fxFlex="85%">{{(element.price_change_percentage_24h) | number:'1.0-2'}}%</div>
+        </div>
+
+        <div *ngIf="element.price_change_percentage_24h < 0" fxLayout="row" >
+          <mat-icon class="change-icon" fxFlex="15%">arrow_drop_down</mat-icon>
+          <div fxFlex="85%">{{(element.price_change_percentage_24h) | number:'1.0-2'}}%</div>
+        </div>
       </td>
     </ng-container>
 
@@ -83,32 +101,45 @@
           'cell-positive': element.price_change_percentage_24h > 0
         }"
       >
-        {{(element.price_change_24h) | currency}}
+        <div *ngIf="element.price_change_percentage_24h > 0" fxLayout="row" >
+          <mat-icon class="change-icon" fxFlex="15%">arrow_drop_up</mat-icon>
+          <div fxFlex="85%">{{(element.price_change_24h) | currency}}</div>
+        </div>
+
+        <div *ngIf="element.price_change_percentage_24h < 0" fxLayout="row" >
+          <mat-icon class="change-icon" fxFlex="15%">arrow_drop_down</mat-icon>
+          <div fxFlex="85%">{{(element.price_change_24h) | currency}}</div>
+        </div>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="symbol">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </th>
-      <td mat-cell *matCellDef="let element">
+      <td
+        mat-cell
+        *matCellDef="let element"
+        routerLink="/details/{{element.id}}"
+      >
+        <img *ngIf="!desktopView" class="cryptoIcon" src={{element.image}} alt="sd">
         {{element.symbol | uppercase}}
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="circulating_supply">
+    <ng-container *ngIf="desktopView" matColumnDef="circulating_supply">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Circulating Supply </th>
       <td mat-cell *matCellDef="let element">
         {{element.circulating_supply | number:'1.0-0'}}
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="total_supply">
+    <ng-container *ngIf="desktopView" matColumnDef="total_supply">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Supply </th>
       <td mat-cell *matCellDef="let element">
         {{element.total_supply | number:'1.0-0'}}
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="max_supply">
+    <ng-container *ngIf="desktopView" matColumnDef="max_supply">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Max Supply </th>
       <td mat-cell *matCellDef="let element">
         {{element.max_supply | number:'1.0-0'}}
@@ -120,4 +151,5 @@
       mat-row *matRowDef="let row; columns: displayedColumns;"
     ></tr>
   </table>
+  <br>
 </mat-card>

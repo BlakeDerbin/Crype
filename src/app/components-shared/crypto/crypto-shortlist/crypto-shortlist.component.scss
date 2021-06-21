@@ -17,6 +17,12 @@ th.mat-sort-header-sorted {
   margin-bottom: -2%;
 }
 
+.change-icon::ng-deep {
+  height: 5px;
+  width: 5px;
+  margin-right: 10px;
+}
+
 .cryptoIcon {
   width: 20px;
   height: 20px;

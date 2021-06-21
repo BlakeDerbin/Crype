@@ -9,6 +9,7 @@ import { NavbarComponent } from "./components/navbar/navbar.component";
 import { CryptoModule } from "./components-shared/crypto/crypto.module";
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     HttpClientModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    FlexLayoutModule,
     CryptoModule,
     MaterialModules
   ],

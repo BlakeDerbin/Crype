@@ -43,6 +43,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 import {OverlayModule} from '@angular/cdk/overlay';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { FlexLayoutModule } from "@angular/flex-layout";
 
 @NgModule({
   exports: [
@@ -92,6 +93,7 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
     ScrollingModule,
     MatDialogModule,
     MatDatepickerModule,
+    FlexLayoutModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'en-EN' },
