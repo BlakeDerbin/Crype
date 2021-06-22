@@ -126,7 +126,7 @@ export class CryptoDetailsComponent implements OnInit {
       chart: {
         type: "area",
         stacked: false,
-        height: 350,
+        height: 250,
         zoom: {
           type: "x",
           enabled: false,
