@@ -26,7 +26,7 @@ export class CryptoShortlistComponent implements OnInit {
 
   triangleChange = "./../../../shared/style/images/tri_change.svg"
   displayedColumns: string[];
-  selectedCurrency = 'usd';
+  currency = "USD";
   selectedCrypto!: IcryptoMarket;
   dataSource = new MatTableDataSource<IcryptoMarket>();
   subscription: Subscription;
@@ -79,7 +79,13 @@ export class CryptoShortlistComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getData();
+    // changes the currency type in the service
+    this.service.selectedCurrency.subscribe(
+      (current: string) => {
+        this.getData(current)
+      });
+
+    this.getData(this.currency);
   }
 
   //**
@@ -89,8 +95,8 @@ export class CryptoShortlistComponent implements OnInit {
   }
 
   //using observable get data from api
-  getData() {
-    this.subscription = this.service.getMarketData().subscribe(data => {
+  getData(selected) {
+    this.subscription = this.service.getMarketData(selected).subscribe(data => {
       console.log("Fetching data...")
       this.dataSource.data = data;
       this.dataValues = data;

@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable, Output } from '@angular/core';
+import { EventEmitter, Injectable, Input } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import IcryptoMarket from "./ImarketData.model";
@@ -8,18 +8,35 @@ import IcryptoDetails from "./IcryptoDetails.model";
   providedIn: 'root'
 })
 export class CryptoControllerService {
-  defaultCurrency = 'usd';
   formData: IcryptoMarket = new IcryptoMarket();
   readonly baseURL = 'https://api.coingecko.com/api/v3';
 
-  constructor(private http: HttpClient) { }
+  defaultCurrency = 'usd';
+  selectedCurrency = new EventEmitter<String>();
 
-  getTop3Data(): Observable<Array<IcryptoMarket>> {
-    return this.http.get<Array<IcryptoMarket>>(this.baseURL + '/coins/markets?vs_currency=' + this.defaultCurrency + '&order=market_cap_desc&per_page=3&page=1&sparkline=false');
+  private currencies: string[] = [
+    "USD", "AUD", "NZD"
+  ]
+
+  constructor(private http: HttpClient) {
   }
 
-  getMarketData(): Observable<Array<IcryptoMarket>> {
-    return this.http.get<Array<IcryptoMarket>>(this.baseURL + '/coins/markets?vs_currency=' + this.defaultCurrency + '&order=market_cap_desc&per_page=20&page=1&sparkline=false');
+  getCurrencies() {
+    return this.currencies.slice();
+  }
+
+  getTop3Data(currency: string): Observable<Array<IcryptoMarket>> {
+    // if currency is undefined or null set default to USD
+    ([null,undefined].includes(currency)) ? currency = "USD" : currency
+
+    return this.http.get<Array<IcryptoMarket>>(this.baseURL + '/coins/markets?vs_currency=' + currency + '&order=market_cap_desc&per_page=3&page=1&sparkline=false');
+  }
+
+  getMarketData(currency: string): Observable<Array<IcryptoMarket>> {
+    // if currency is undefined or null set default to USD
+    ([null,undefined].includes(currency)) ? currency = "USD" : currency
+
+    return this.http.get<Array<IcryptoMarket>>(this.baseURL + '/coins/markets?vs_currency=' + currency + '&order=market_cap_desc&per_page=20&page=1&sparkline=false');
   }
 
   getCryptoDetails(id: string) {

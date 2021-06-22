@@ -1,33 +1,19 @@
 <mat-toolbar>
+
   <div class="navbar-title">
     <button
       mat-button
       aria-label="home-button"
       routerLink=""
-    >
-      <h2>Crype</h2>
+    ><h2>Crype</h2>
     </button>
   </div>
+
   <div class="navbar-currency">
     <button mat-button [matMenuTriggerFor]="currencyMenu">Currency ({{selectedCurrency}})</button>
     <mat-menu #currencyMenu="matMenu">
-      <button mat-menu-item (click)="changeCurrency(currencyUSD)">USD</button>
-      <button mat-menu-item (click)="changeCurrency(currencyAUD)">AUD</button>
+      <button mat-menu-item  *ngFor="let cur of currencies" (click)="changeCurrency(cur)">{{cur}}</button>
     </mat-menu>
   </div>
-<!--  <div class="navbar-buttons">-->
-<!--    <button-->
-<!--      mat-button-->
-<!--      aria-label="home-button"-->
-<!--      routerLink=""-->
-<!--    ><mat-icon>home</mat-icon>-->
-<!--    </button>-->
-<!--    <button-->
-<!--      mat-button-->
-<!--      aria-label="crypto-list"-->
-<!--      routerLink="crype-list"-->
-<!--    ><mat-icon>format_list_bulleted</mat-icon>-->
-<!--      <span id="button-title">Top 20</span>-->
-<!--    </button>-->
-<!--  </div>-->
+
 </mat-toolbar>

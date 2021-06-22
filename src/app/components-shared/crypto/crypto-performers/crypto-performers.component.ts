@@ -15,6 +15,7 @@ export class CryptoPerformersComponent implements OnInit {
   subscription: Subscription;
   cryptoData = new Array<IcryptoMarket>();
   desktopView: boolean;
+  currency = "USD"
 
   //**
   destroyed = new Subject<void>();
@@ -50,7 +51,13 @@ export class CryptoPerformersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getTop3();
+    // changes the currency type in the service
+    this.service.selectedCurrency.subscribe(
+      (current: string) => {
+        this.getTop3(current)
+      }
+    );
+    this.getTop3(this.currency);
   }
 
   //**
@@ -60,8 +67,9 @@ export class CryptoPerformersComponent implements OnInit {
   }
 
   //using observable get data from api
-  getTop3() {
-    this.subscription = this.service.getTop3Data().subscribe(data => {
+  getTop3(currency) {
+    this.subscription = this.service.getTop3Data(currency).subscribe(data => {
+      console.log("fetching top 3 data...")
       this.cryptoData = data;
     });
   }
