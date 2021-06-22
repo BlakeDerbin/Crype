@@ -2,7 +2,6 @@
   flex-direction: row;
   box-sizing: content-box;
   display: flex;
-  //padding-right: 1%;
 }
 
 .change-icon::ng-deep {
@@ -16,8 +15,7 @@
   box-sizing: content-box;
   display: flex;
   width: 33.33%;
-  margin: 0.5%;
-  height: 100%;
+  margin-right: 0.5%;
 
   .inner-card::ng-deep {
     background-color: #4d4d4d;;
@@ -27,7 +25,6 @@
   .col-inner-1 {
     flex-direction: column;
     box-sizing: border-box;
-    //display: flex;
     width: 100px;
     margin-right: 1%;
     img {
@@ -40,9 +37,6 @@
   .col-inner-2 {
     flex-direction: column;
     box-sizing: border-box;
-    //display: flex;
-    //width: 70%;
-    //margin-right: 1%;
   }
 
   .change-icon::ng-deep {
@@ -58,14 +52,12 @@
    flex-direction: row;
    box-sizing: initial;
    display: contents;
-   //padding-right: 1%;
   }
   .col {
    flex-direction: column;
-   //box-sizing: content-box;
    display: inline-block;
    width: 100%;
-   margin: 0.5%;
+   margin-top:1%;
    height: 100%;
    .inner-card::ng-deep {
      background-color: #4d4d4d;;
@@ -74,7 +66,6 @@
    }
    .col-inner-1 {
      flex-direction: column;
-     //box-sizing: border-box;
      display: inline-table;
      margin-top: auto;
      margin-bottom: auto;
@@ -88,11 +79,9 @@
 
     .col-inner-2 {
       flex-direction: column;
-      //box-sizing: border-box;
       display: inline-flex;
       width: 82%;
       float: right;
-      //margin-right: 1%;
     }
 
     .change-icon::ng-deep {

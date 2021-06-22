@@ -11,7 +11,6 @@ export class CryptoControllerService {
   formData: IcryptoMarket = new IcryptoMarket();
   readonly baseURL = 'https://api.coingecko.com/api/v3';
 
-  defaultCurrency = 'usd';
   selectedCurrency = new EventEmitter<String>();
 
   private currencies: string[] = [

@@ -6,7 +6,7 @@ import { DetailsResolver } from "~app/components-shared/crypto/resolvers/details
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'top20',
     component: CryptoComponent
   },
   {
