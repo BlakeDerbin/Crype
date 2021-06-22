@@ -1,5 +1,5 @@
 <div fxLayout="column" class="row" *ngIf="!desktopView">
-  <div fxFlex class="col" *ngFor="let element of cryptoData">
+  <div fxFlex class="col" *ngFor="let element of cryptoData" routerLink="/details/{{element.id}}">
     <mat-card class="inner-card">
       <div fxLayout="row">
         <div class="col-inner-1">
@@ -35,7 +35,7 @@
 </div>
 
 <div fxLayout="row" class="row" *ngIf="desktopView">
-  <div fxFlex class="col" *ngFor="let element of cryptoData">
+  <div fxFlex class="col" *ngFor="let element of cryptoData" routerLink="/details/{{element.id}}">
     <mat-card class="inner-card">
         <div class="col-inner-1">
           <img src={{element.image}} alt="sd">
