@@ -18,9 +18,9 @@
             <h5>Market Rank: {{this.market_rank}}</h5>
             <div fxLayout="row">24hr change:
               <div [ngClass]="{
-                        'cell-negative': this.price_change_24hr < 0,
-                        'cell-positive': this.price_change_24hr > 0
-                      }"
+                      'cell-negative': this.price_change_24hr < 0,
+                      'cell-positive': this.price_change_24hr > 0
+                    }"
               >
                 <div *ngIf="this.price_change_24hr > 0" fxLayout="row" >
                   <mat-icon class="change-icon" fxFlex="15%">arrow_drop_up</mat-icon>
@@ -41,7 +41,7 @@
         <div fxLayout="column">
           <h3>Details</h3>
           <a href="{{this.home_page}}">{{this.name}} Website</a>
-          <a href="{{this.subbreddit}}">{{this.name}} Subreddit</a>
+          <a href="{{this.subreddit}}">{{this.name}} Subreddit</a>
         </div>
       </div>
     </div>
@@ -70,4 +70,5 @@
       ></apx-chart>
     </div>
   </div>
+
 </mat-card>

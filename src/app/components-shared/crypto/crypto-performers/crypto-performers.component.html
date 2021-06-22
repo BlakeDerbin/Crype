@@ -1,73 +1,72 @@
+<div fxLayout="column" class="row" *ngIf="!desktopView">
+  <div fxFlex class="col" *ngFor="let element of cryptoData">
+    <mat-card class="inner-card">
+      <div fxLayout="row">
+        <div class="col-inner-1">
+          <img class="cryptoIcon" src={{element.image}} alt="sd">
+        </div>
 
-  <div fxLayout="column" class="row" *ngIf="!desktopView">
-    <div fxFlex class="col" *ngFor="let element of cryptoData">
-      <mat-card class="inner-card">
-        <div fxLayout="row">
-          <div class="col-inner-1">
-            <img class="cryptoIcon" src={{element.image}} alt="sd">
-          </div>
+        <div
+          class="col-inner-2">
+          <span>{{element.name}}</span>
+          <span>Market cap: {{element.market_cap_rank}}</span>
+          <span>Current price: {{element.current_price | currency}}</span>
+          <div fxLayout="row">24hr change:
+            <div [ngClass]="{
+                        'cell-negative': element.market_cap_change_percentage_24h < 0,
+                        'cell-positive': element.market_cap_change_percentage_24h > 0
+                      }"
+            >
+              <div *ngIf="element.market_cap_change_percentage_24h > 0" fxLayout="row" >
+                <mat-icon class="change-icon" fxFlex="15%">arrow_drop_up</mat-icon>
+                <div fxFlex="85%">{{element.market_cap_change_percentage_24h | number:'1.0-2'}}%</div>
+              </div>
 
-          <div
-            class="col-inner-2">
-            <span>{{element.name}}</span>
-            <span>Market cap: {{element.market_cap_rank}}</span>
-            <span>Current price: {{element.current_price | currency}}</span>
-            <div fxLayout="row">24hr change:
-              <div [ngClass]="{
-                          'cell-negative': element.market_cap_change_percentage_24h < 0,
-                          'cell-positive': element.market_cap_change_percentage_24h > 0
-                        }"
-              >
-                <div *ngIf="element.market_cap_change_percentage_24h > 0" fxLayout="row" >
-                  <mat-icon class="change-icon" fxFlex="15%">arrow_drop_up</mat-icon>
-                  <div fxFlex="85%">{{element.market_cap_change_percentage_24h | number:'1.0-2'}}%</div>
-                </div>
-
-                <div *ngIf="element.market_cap_change_percentage_24h < 0" fxLayout="row" >
-                  <mat-icon class="change-icon" fxFlex="15%">arrow_drop_down</mat-icon>
-                  <div fxFlex="85%">{{element.market_cap_change_percentage_24h | number:'1.0-2'}}%</div>
-                </div>
+              <div *ngIf="element.market_cap_change_percentage_24h < 0" fxLayout="row" >
+                <mat-icon class="change-icon" fxFlex="15%">arrow_drop_down</mat-icon>
+                <div fxFlex="85%">{{element.market_cap_change_percentage_24h | number:'1.0-2'}}%</div>
               </div>
             </div>
           </div>
         </div>
-      </mat-card>
-    </div>
+      </div>
+    </mat-card>
   </div>
+</div>
 
-  <div fxLayout="row" class="row" *ngIf="desktopView">
-    <div fxFlex class="col" *ngFor="let element of cryptoData">
-      <mat-card class="inner-card">
-          <div class="col-inner-1">
-            <img src={{element.image}} alt="sd">
-          </div>
+<div fxLayout="row" class="row" *ngIf="desktopView">
+  <div fxFlex class="col" *ngFor="let element of cryptoData">
+    <mat-card class="inner-card">
+        <div class="col-inner-1">
+          <img src={{element.image}} alt="sd">
+        </div>
 
-        <div fxFlex>
-          <div
-            fxLayout="column"
-            class="col-inner-2">
-            <span>{{element.name}}</span>
-            <span>Market cap: {{element.market_cap_rank}}</span>
-            <span>Current price: {{element.current_price | currency}}</span>
-            <div fxLayout="row">24hr change:
-              <div [ngClass]="{
-                          'cell-negative': element.market_cap_change_percentage_24h < 0,
-                          'cell-positive': element.market_cap_change_percentage_24h > 0
-                        }"
-              >
-                <div *ngIf="element.market_cap_change_percentage_24h > 0" fxLayout="row" >
-                  <mat-icon class="change-icon" fxFlex="15%">arrow_drop_up</mat-icon>
-                  <div fxFlex="85%">{{element.market_cap_change_percentage_24h | number:'1.0-2'}}%</div>
-                </div>
+      <div fxFlex>
+        <div
+          fxLayout="column"
+          class="col-inner-2">
+          <span>{{element.name}}</span>
+          <span>Market cap: {{element.market_cap_rank}}</span>
+          <span>Current price: {{element.current_price | currency}}</span>
+          <div fxLayout="row">24hr change:
+            <div [ngClass]="{
+                        'cell-negative': element.market_cap_change_percentage_24h < 0,
+                        'cell-positive': element.market_cap_change_percentage_24h > 0
+                      }"
+            >
+              <div *ngIf="element.market_cap_change_percentage_24h > 0" fxLayout="row" >
+                <mat-icon class="change-icon" fxFlex="15%">arrow_drop_up</mat-icon>
+                <div fxFlex="85%">{{element.market_cap_change_percentage_24h | number:'1.0-2'}}%</div>
+              </div>
 
-                <div *ngIf="element.market_cap_change_percentage_24h < 0" fxLayout="row" >
-                  <mat-icon class="change-icon" fxFlex="15%">arrow_drop_down</mat-icon>
-                  <div fxFlex="85%">{{element.market_cap_change_percentage_24h | number:'1.0-2'}}%</div>
-                </div>
+              <div *ngIf="element.market_cap_change_percentage_24h < 0" fxLayout="row" >
+                <mat-icon class="change-icon" fxFlex="15%">arrow_drop_down</mat-icon>
+                <div fxFlex="85%">{{element.market_cap_change_percentage_24h | number:'1.0-2'}}%</div>
               </div>
             </div>
           </div>
         </div>
-      </mat-card>
-    </div>
+      </div>
+    </mat-card>
   </div>
+</div>

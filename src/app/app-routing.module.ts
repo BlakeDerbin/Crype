@@ -3,10 +3,17 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from "./components/home/home.component";
 
 const routes: Routes = [
-  { path: '', component: HomeComponent},
-  { path: 'crype-list',
+  {
+    path: '',
+    pathMatch: 'full',
+    component: HomeComponent
+  },
+  {
+    path: 'crype-list',
+    pathMatch: 'full',
     loadChildren: () => import('./components-shared/crypto/crypto.module')
-      .then(m => m.CryptoModule) }
+      .then(m => m.CryptoModule)
+  }
 ];
 
 @NgModule({

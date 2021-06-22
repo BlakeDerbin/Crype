@@ -1,2 +1,8 @@
 <app-navbar></app-navbar>
-<router-outlet></router-outlet>
+
+<div class="loadingSpinner" fxLayout="column" fxLayoutAlign="center center" *ngIf="loading">
+  <mat-spinner></mat-spinner>
+  <h3>Loading data...</h3>
+</div>
+
+<router-outlet *ngIf="!loading"></router-outlet>

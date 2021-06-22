@@ -7,6 +7,7 @@ import { MaterialModules } from "../modules/material-module";
 import { CryptoRoutingModule } from "./crypto-routing.module";
 import { NgApexchartsModule } from "ng-apexcharts";
 import { CryptoPerformersComponent } from './crypto-performers/crypto-performers.component';
+import { DetailsResolver } from "~app/components-shared/crypto/resolvers/details.resolver";
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { CryptoPerformersComponent } from './crypto-performers/crypto-performers
     CryptoRoutingModule,
     MaterialModules,
     NgApexchartsModule
-  ]
+  ],
+  providers: [ DetailsResolver ]
 })
 export class CryptoModule { }

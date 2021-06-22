@@ -1,9 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-import { CryptoControllerService } from 'src/app/components-services/crypto/crypto-controller.service';
 import * as moment from "moment";
-import IcryptoDetails from "src/app/components-services/crypto/IcryptoDetails.model";
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -15,8 +12,6 @@ import {
   ApexXAxis,
   ApexTooltip, ChartComponent, ApexTheme
 } from "ng-apexcharts";
-import {DataRowOutlet} from "@angular/cdk/table";
-import {log} from "util";
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -41,7 +36,7 @@ export class CryptoDetailsComponent implements OnInit {
   @ViewChild("chart") chart: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
 
-  details = new Array<IcryptoDetails>();
+  details: any;
   id: string
   name: string;
   description: any;
@@ -49,51 +44,33 @@ export class CryptoDetailsComponent implements OnInit {
   ath: number;
   market_rank: number;
   home_page: any;
-  subbreddit: any;
+  subreddit: any;
   current_price: number;
   price_change_24hr: number;
   sparkline_values: any;
   sparkline_dates = [];
   sparkline_data = [];
 
-
-  constructor(
-    private route: ActivatedRoute,
-    private cryptoService: CryptoControllerService,
-    private location: Location
-  ) { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.getCryptoDetails();
-  }
-
-  private getCryptoDetails(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    console.log("route id: ", id)
-    this.cryptoService.getCryptoDetails(id).subscribe((data) => {
-      console.log("Getting crypto details data...")
-      this.details = data;
-      console.log(this.details);
-      this.assignApiData(this.details);
-    },
-      error => {
-        console.log("Data can't be fetched, API offline")
-      }
-      );
+    // data set from resolver
+    this.details = this.route.snapshot.data;
+    this.assignApiData(this.details);
   }
 
   private assignApiData(val: any) {
-    this.sparkline_values = val.market_data.sparkline_7d.price;
-    this.id = val.id;
-    this.name = val.name;
-    this.description = val.description.en;
-    this.thumbnail = val.image.thumb;
-    this.ath = val.market_data.ath.usd;
-    this.market_rank = val.market_cap_rank;
-    this.home_page = val.links.homepage[0];
-    this.subbreddit = val.links.subreddit_url;
-    this.current_price = val.market_data.current_price.usd;
-    this.price_change_24hr = val.market_data.price_change_percentage_24h;
+    this.sparkline_values = val?.details.market_data.sparkline_7d.price;
+    this.id = val?.details.id;
+    this.name = val?.details.name;
+    this.description = val.details.description.en;
+    this.thumbnail = val?.details.image.thumb;
+    this.ath = val?.details.market_data.ath.usd;
+    this.market_rank = val?.details.market_cap_rank;
+    this.home_page = val?.details.links.homepage[0];
+    this.subreddit = val?.details.links.subreddit_url;
+    this.current_price = val?.details.market_data.current_price.usd;
+    this.price_change_24hr = val?.details.market_data.price_change_percentage_24h;
 
     if(this.description === "") {
       this.description = this.name + " has no overview information available."
@@ -138,7 +115,7 @@ export class CryptoDetailsComponent implements OnInit {
     this.initChartData();
   }
 
-  public initChartData(): void {
+  private initChartData(): void {
     this.chartOptions = {
       series: [
         {
