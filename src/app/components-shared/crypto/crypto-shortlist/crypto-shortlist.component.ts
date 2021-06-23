@@ -6,6 +6,7 @@ import { MatSort } from "@angular/material/sort";
 import { CryptoControllerService } from "../../../components-services/crypto/crypto-controller.service";
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import {takeUntil} from "rxjs/operators";
+import {ActivatedRoute} from "@angular/router";
 
 export const cryptoColumnsDesktop: string[] = [
   'market_cap_rank', 'name', 'symbol', 'price_change_percentage_24h',
@@ -30,7 +31,8 @@ export class CryptoShortlistComponent implements OnInit {
   selectedCrypto!: IcryptoMarket;
   dataSource = new MatTableDataSource<IcryptoMarket>();
   subscription: Subscription;
-  dataValues = new Array<IcryptoMarket>();
+  //dataValues = new Array<IcryptoMarket>();
+  dataValues: any;
 
   //**
   destroyed = new Subject<void>();
@@ -53,9 +55,17 @@ export class CryptoShortlistComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  constructor(public service: CryptoControllerService, public breakpointObserver: BreakpointObserver) {
-    this.desktopView = true;
+  constructor(
+    public service: CryptoControllerService,
+    public breakpointObserver: BreakpointObserver,
+    public route: ActivatedRoute) {
 
+    // on loading gets data from resolver, used to preload data
+    this.dataValues = this.route.snapshot.data['list']
+    this.dataSource.data = this.dataValues
+
+    // detects screen size, used in changing layout based on desktop/mobile
+    this.desktopView = true;
     breakpointObserver.observe([
       Breakpoints.XSmall,
       Breakpoints.Small,
@@ -81,11 +91,9 @@ export class CryptoShortlistComponent implements OnInit {
   ngOnInit(): void {
     // changes the currency type in the service
     this.service.selectedCurrency.subscribe(
-      (current: string) => {
-        this.getData(current)
+      (currency: string) => {
+        this.getEndpointData(currency)
       });
-
-    this.getData(this.currency);
   }
 
   //**
@@ -95,23 +103,16 @@ export class CryptoShortlistComponent implements OnInit {
   }
 
   //using observable get data from api
-  getData(selected) {
-    this.subscription = this.service.getMarketData(selected).subscribe(data => {
-      console.log("Fetching data...")
-      this.dataSource.data = data;
-      this.dataValues = data;
-      //this.logData();
-    },
+  private getEndpointData(currency: string) {
+    this.service.getMarketData(currency).subscribe(data => {
+        console.log("fetching data...")
+        this.dataSource.data = data;
+        this.dataValues = data;
+      },
       error => {
-        console.log("Data can't be fetched, no connection!")
+        console.error("error: can't fetch endpoint data!")
       }
-      );
-  }
-
-  logData() {
-    this.dataValues.forEach(val => {
-      console.log('===', val);
-    })
+    );
   }
 
   onSelectDetails(crypto: IcryptoMarket): void {

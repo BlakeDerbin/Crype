@@ -4,6 +4,7 @@ import IcryptoMarket from "../../../components-services/crypto/ImarketData.model
 import { CryptoControllerService } from "../../../components-services/crypto/crypto-controller.service";
 import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 import { takeUntil } from "rxjs/operators";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-crypto-performers',
@@ -12,10 +13,11 @@ import { takeUntil } from "rxjs/operators";
 })
 export class CryptoPerformersComponent implements OnInit {
 
-  subscription: Subscription;
+  subscription: any;
   cryptoData = new Array<IcryptoMarket>();
   desktopView: boolean;
   currency = "USD"
+  dataValues: any;
 
   //**
   destroyed = new Subject<void>();
@@ -31,9 +33,11 @@ export class CryptoPerformersComponent implements OnInit {
   ])
 
   //**
-  constructor(public service: CryptoControllerService, public breakpointObserver: BreakpointObserver) {
-    this.desktopView = true;
+  constructor(private service: CryptoControllerService, private breakpointObserver: BreakpointObserver, private route: ActivatedRoute) {
+    // on loading gets data from resolver, used to preload data
+    this.cryptoData = this.route.snapshot.data['list'].slice(0,3)
 
+    this.desktopView = true;
     breakpointObserver.observe([
       Breakpoints.XSmall,
       Breakpoints.Small,
@@ -52,26 +56,28 @@ export class CryptoPerformersComponent implements OnInit {
 
   ngOnInit(): void {
     // changes the currency type in the service
-    this.service.selectedCurrency.subscribe(
-      (current: string) => {
-        this.getTop3(current)
+    this.subscription = this.service.selectedCurrency.subscribe(
+      (currency: string) => {
+        this.getEndpointData(currency);
       }
     );
-    this.getTop3(this.currency);
+  }
+
+  private getEndpointData(currency: string) {
+    this.service.getMarketData(currency).subscribe(data => {
+      console.log("fetching top 3 data...")
+      this.cryptoData = data.slice(0,3);
+    },
+      error => {
+        console.error("error: can't fetch endpoint data!")
+      }
+    );
   }
 
   //**
   ngOnDestroy() {
+    this.subscription.unsubscribe();
     this.destroyed.next();
     this.destroyed.complete();
   }
-
-  //using observable get data from api
-  getTop3(currency) {
-    this.subscription = this.service.getTop3Data(currency).subscribe(data => {
-      console.log("fetching top 3 data...")
-      this.cryptoData = data;
-    });
-  }
-
 }

@@ -8,6 +8,7 @@ import { CryptoRoutingModule } from "./crypto-routing.module";
 import { NgApexchartsModule } from "ng-apexcharts";
 import { CryptoPerformersComponent } from './crypto-performers/crypto-performers.component';
 import { DetailsResolver } from "~app/components-shared/crypto/resolvers/details.resolver";
+import {MarketDataResolver} from "~app/components-shared/crypto/resolvers/market-data.resolver";
 
 @NgModule({
   declarations: [
@@ -16,16 +17,17 @@ import { DetailsResolver } from "~app/components-shared/crypto/resolvers/details
     CryptoDetailsComponent,
     CryptoPerformersComponent
   ],
-  exports: [
-    CryptoPerformersComponent,
-    CryptoShortlistComponent
-  ],
+    exports: [
+        CryptoPerformersComponent,
+        CryptoShortlistComponent,
+        CryptoComponent
+    ],
   imports: [
     CommonModule,
     CryptoRoutingModule,
     MaterialModules,
     NgApexchartsModule
   ],
-  providers: [ DetailsResolver ]
+  providers: [ DetailsResolver, MarketDataResolver ]
 })
 export class CryptoModule { }
