@@ -49,7 +49,18 @@
     <div class="crypto-overview">
       <h3>{{this.name}} overview</h3>
       <!-- Description is set from TS file  -->
-      <p id="description"></p>
+      <div class="description-container">
+
+        <div class="description-body" (click)="toggleFold()" [@panelState]="description_folded">
+          <p id="description"></p>
+        </div>
+
+        <div class="description-footer" (click)="toggleFold()" fxLayout="row">
+          <div fxFlex="90">{{expand_folded}}</div>
+          <div fxFlex="10"><mat-icon>{{icon_folded}}</mat-icon></div>
+        </div>
+
+      </div>
     </div>
     <br>
 

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from "moment";
+import { animate, state, style, transition, trigger } from "@angular/animations";
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -29,12 +30,24 @@ export type ChartOptions = {
 @Component({
   selector: 'app-crypto-details',
   templateUrl: './crypto-details.component.html',
-  styleUrls: ['./crypto-details.component.scss']
+  styleUrls: ['./crypto-details.component.scss'],
+  animations : [
+    // animations set for the description expansion
+    trigger('panelState', [
+      state('closed', style({ height: '100px', overflow: 'hidden' })),
+      state('open', style({ height: '*' })),
+      transition('closed <=> open', animate('300ms ease-in-out')),
+    ]),
+  ],
 })
 export class CryptoDetailsComponent implements OnInit {
 
   @ViewChild("chart") chart: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
+
+  description_folded = 'closed';
+  expand_folded = 'Expand full description'
+  icon_folded = 'expand_more'
 
   details: any;
   id: string
@@ -51,26 +64,35 @@ export class CryptoDetailsComponent implements OnInit {
   sparkline_dates = [];
   sparkline_data = [];
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute) {
+    // on loading gets data from resolver, used to preload data
+    this.details = this.route.snapshot.data['details'];
+  }
 
   ngOnInit(): void {
-    // data set from resolver
-    this.details = this.route.snapshot.data;
     this.assignApiData(this.details);
   }
 
+  // toggleFold function simply changes our folded property
+  // between "open" and "closed"
+  toggleFold(){
+    this.description_folded = this.description_folded === 'open' ? 'closed' : 'open';
+    this.expand_folded = this.description_folded === 'open' ? 'Close full description' : 'Expand full description';
+    this.icon_folded = this.description_folded === 'open' ? 'expand_less' : 'expand_more';
+  }
+
   private assignApiData(val: any) {
-    this.sparkline_values = val?.details.market_data.sparkline_7d.price;
-    this.id = val?.details.id;
-    this.name = val?.details.name;
-    this.description = val.details.description.en;
-    this.thumbnail = val?.details.image.thumb;
-    this.ath = val?.details.market_data.ath.usd;
-    this.market_rank = val?.details.market_cap_rank;
-    this.home_page = val?.details.links.homepage[0];
-    this.subreddit = val?.details.links.subreddit_url;
-    this.current_price = val?.details.market_data.current_price.usd;
-    this.price_change_24hr = val?.details.market_data.price_change_percentage_24h;
+    this.sparkline_values = val?.market_data.sparkline_7d.price;
+    this.id = val?.id;
+    this.name = val?.name;
+    this.description = val.description.en;
+    this.thumbnail = val?.image.thumb;
+    this.ath = val?.market_data.ath.usd;
+    this.market_rank = val?.market_cap_rank;
+    this.home_page = val?.links.homepage[0];
+    this.subreddit = val?.links.subreddit_url;
+    this.current_price = val?.market_data.current_price.usd;
+    this.price_change_24hr = val?.market_data.price_change_percentage_24h;
 
     if(this.description === "") {
       this.description = this.name + " has no overview information available."
@@ -148,12 +170,13 @@ export class CryptoDetailsComponent implements OnInit {
         align: "left",
       },
       theme: {
-        mode: "dark"
+        mode: "dark",
+        palette: "palette6"
       },
       fill: {
         type: "gradient",
         gradient: {
-          shadeIntensity: 1,
+          shadeIntensity: 0,
           inverseColors: true,
           opacityFrom: 0.5,
           opacityTo: 0,
