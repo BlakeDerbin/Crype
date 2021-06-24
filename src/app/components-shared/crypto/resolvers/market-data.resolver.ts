@@ -10,6 +10,6 @@ export class MarketDataResolver implements Resolve<any> {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
-    return this.service.getMarketData("USD")
+    return this.service.getMarketData()
   }
 }

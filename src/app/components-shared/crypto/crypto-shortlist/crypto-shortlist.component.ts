@@ -90,21 +90,22 @@ export class CryptoShortlistComponent implements OnInit {
 
   ngOnInit(): void {
     // changes the currency type in the service
-    this.service.selectedCurrency.subscribe(
-      (currency: string) => {
-        this.getEndpointData(currency)
+    this.subscription = this.service.selectedCurrency.subscribe(
+      () => {
+        this.getEndpointData()
       });
   }
 
   //**
   ngOnDestroy() {
+    this.subscription.unsubscribe();
     this.destroyed.next();
     this.destroyed.complete();
   }
 
   //using observable get data from api
-  private getEndpointData(currency: string) {
-    this.service.getMarketData(currency).subscribe(data => {
+  private getEndpointData() {
+    this.service.getMarketData().subscribe(data => {
         console.log("fetching data...")
         this.dataSource.data = data;
         this.dataValues = data;

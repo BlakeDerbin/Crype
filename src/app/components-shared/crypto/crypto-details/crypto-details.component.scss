@@ -34,7 +34,7 @@ a {
   .change-icon::ng-deep {
     height: 5px;
     width: 5px;
-    margin-right: 50%;
+    margin-right: 17px;
   }
 }
 
@@ -53,4 +53,8 @@ a {
 
 .description-footer {
   padding-top:10px;
+  #icon-dropdown {
+    display: inline-block;
+    text-align: right;
+  }
 }

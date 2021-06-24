@@ -11,31 +11,31 @@ export class CryptoControllerService {
   formData: IcryptoMarket = new IcryptoMarket();
   readonly baseURL = 'https://api.coingecko.com/api/v3';
 
-  selectedCurrency = new EventEmitter<String>();
+  selectedCurrency = new EventEmitter<string>();
+  currency = "USD";
 
   private currencies: string[] = [
-    "USD", "AUD", "NZD"
+    "USD", "AUD", "NZD", "CAD"
   ]
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient) { }
+
+  currentCurrency(): string {
+    return this.currency
   }
 
   getCurrencies() {
+    // subscribes to event currency event and sets the currency on api calls
+    this.selectedCurrency.subscribe(value => {this.currency = value})
     return this.currencies.slice();
   }
 
-  getTop3Data(currency: string): Observable<Array<IcryptoMarket>> {
-    // if currency is undefined or null set default to USD
-    ([null,undefined].includes(currency)) ? currency = "USD" : currency
-
-    return this.http.get<Array<IcryptoMarket>>(this.baseURL + '/coins/markets?vs_currency=' + currency + '&order=market_cap_desc&per_page=3&page=1&sparkline=false');
+  getTop3Data(): Observable<Array<IcryptoMarket>> {
+    return this.http.get<Array<IcryptoMarket>>(this.baseURL + '/coins/markets?vs_currency=' + this.currency + '&order=market_cap_desc&per_page=3&page=1&sparkline=false');
   }
 
-  getMarketData(currency: string): Observable<Array<IcryptoMarket>> {
-    // if currency is undefined or null set default to USD
-    ([null,undefined].includes(currency)) ? currency = "USD" : currency
-
-    return this.http.get<Array<IcryptoMarket>>(this.baseURL + '/coins/markets?vs_currency=' + currency + '&order=market_cap_desc&per_page=20&page=1&sparkline=false');
+  getMarketData(): Observable<Array<IcryptoMarket>> {
+    return this.http.get<Array<IcryptoMarket>>(this.baseURL + '/coins/markets?vs_currency=' + this.currency + '&order=market_cap_desc&per_page=20&page=1&sparkline=false');
   }
 
   getCryptoDetails(id: string) {
