@@ -187,14 +187,16 @@ export class CryptoDetailsComponent implements OnInit {
 
       // update chart series data
       this.chartOptions.series = [{
+        name: this.name,
         data: this.sparkline_data
       }]
     } else {
       // initializes the chart
-      // sets up the 7 day date hourly array
+      // sets up the 7 day sparkline dates array
       for(let i = 0; i < 168; i++) {
-        this.sparkline_dates.push(day.add(1,'hours').format())
+        this.sparkline_dates.push(day.subtract(1,'hours').format())
       }
+      this.sparkline_dates.reverse()
 
       // combines the sparkline arrays into a 2d array for the chart to use
       for (let i = 0; i < this.sparkline_dates.length; i++) {
