@@ -4,7 +4,6 @@ import { CryptoComponent } from "./crypto.component";
 import { CryptoDetailsComponent } from './crypto-details/crypto-details.component';
 import { DetailsResolver } from "~app/components-shared/crypto/resolvers/details.resolver";
 import { MarketDataResolver } from "~app/components-shared/crypto/resolvers/market-data.resolver";
-import {mark} from "@angular/compiler-cli/src/ngtsc/perf/src/clock";
 
 const routes: Routes = [
   {

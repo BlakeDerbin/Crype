@@ -1,0 +1,11 @@
+<form class="search-form">
+  <mat-form-field class="search-formfield">
+    <mat-label>Search for a crypto...</mat-label>
+    <input type="text" matInput [formControl]="searchInput" [matAutocomplete]="auto" (keyup.enter)="searchRedirect()">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayData">
+      <mat-option *ngFor="let crypto of filteredOptions | async | slice:0:5" [value]="crypto" routerLink="/details/{{crypto.id}}">
+        {{crypto.name}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>

@@ -8,25 +8,30 @@ import { CryptoRoutingModule } from "./crypto-routing.module";
 import { NgApexchartsModule } from "ng-apexcharts";
 import { CryptoPerformersComponent } from './crypto-performers/crypto-performers.component';
 import { DetailsResolver } from "~app/components-shared/crypto/resolvers/details.resolver";
-import {MarketDataResolver} from "~app/components-shared/crypto/resolvers/market-data.resolver";
+import { MarketDataResolver } from "~app/components-shared/crypto/resolvers/market-data.resolver";
+import { CryptoSearchbarComponent } from './crypto-search/crypto-searchbar.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
     CryptoComponent,
     CryptoShortlistComponent,
     CryptoDetailsComponent,
-    CryptoPerformersComponent
+    CryptoPerformersComponent,
+    CryptoSearchbarComponent
   ],
-    exports: [
-        CryptoPerformersComponent,
-        CryptoShortlistComponent,
-        CryptoComponent
-    ],
+  exports: [
+    CryptoPerformersComponent,
+    CryptoShortlistComponent,
+    CryptoComponent,
+    CryptoSearchbarComponent
+  ],
   imports: [
     CommonModule,
     CryptoRoutingModule,
     MaterialModules,
-    NgApexchartsModule
+    NgApexchartsModule,
+    ReactiveFormsModule
   ],
   providers: [ DetailsResolver, MarketDataResolver ]
 })
