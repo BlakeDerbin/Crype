@@ -10,7 +10,9 @@ import { CryptoPerformersComponent } from './crypto-performers/crypto-performers
 import { DetailsResolver } from "~app/components-shared/crypto/resolvers/details.resolver";
 import { MarketDataResolver } from "~app/components-shared/crypto/resolvers/market-data.resolver";
 import { CryptoSearchbarComponent } from './crypto-search/crypto-searchbar.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import { ReactiveFormsModule } from "@angular/forms";
+import { CryptoMarketstatsComponent } from './crypto-marketstats/crypto-marketstats.component';
+import { MarketStatsResolver } from "~app/components-shared/crypto/resolvers/market-stats.resolver";
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     CryptoShortlistComponent,
     CryptoDetailsComponent,
     CryptoPerformersComponent,
-    CryptoSearchbarComponent
+    CryptoSearchbarComponent,
+    CryptoMarketstatsComponent
   ],
   exports: [
     CryptoPerformersComponent,
@@ -33,6 +36,6 @@ import {ReactiveFormsModule} from "@angular/forms";
     NgApexchartsModule,
     ReactiveFormsModule
   ],
-  providers: [ DetailsResolver, MarketDataResolver ]
+  providers: [ DetailsResolver, MarketDataResolver, MarketStatsResolver ]
 })
 export class CryptoModule { }

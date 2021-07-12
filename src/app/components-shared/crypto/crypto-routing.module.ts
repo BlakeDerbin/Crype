@@ -4,6 +4,7 @@ import { CryptoComponent } from "./crypto.component";
 import { CryptoDetailsComponent } from './crypto-details/crypto-details.component';
 import { DetailsResolver } from "~app/components-shared/crypto/resolvers/details.resolver";
 import { MarketDataResolver } from "~app/components-shared/crypto/resolvers/market-data.resolver";
+import { MarketStatsResolver } from "~app/components-shared/crypto/resolvers/market-stats.resolver";
 
 const routes: Routes = [
   {
@@ -18,6 +19,7 @@ const routes: Routes = [
     component: CryptoComponent,
     resolve: {
       list: MarketDataResolver,
+      stats: MarketStatsResolver
     }
   }
 ]
