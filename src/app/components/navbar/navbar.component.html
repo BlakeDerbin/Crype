@@ -9,7 +9,7 @@
   </div>
 
   <div class="navbar-currency" fxFlex>
-    <button mat-button [matMenuTriggerFor]="currencyMenu">Currency ({{selectedCurrency}})</button>
+    <button mat-button [matMenuTriggerFor]="currencyMenu">{{selectedCurrency}}</button>
     <mat-menu #currencyMenu="matMenu">
       <button mat-menu-item  *ngFor="let cur of currencies" (click)="changeCurrency(cur)">{{cur}}</button>
     </mat-menu>

@@ -15,7 +15,6 @@ import {
 } from "ng-apexcharts";
 import { CryptoControllerService } from "~app/components-services/crypto/crypto-controller.service";
 import { Subscription } from "rxjs";
-import {NavbarComponent} from "~app/components/navbar/navbar.component";
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
