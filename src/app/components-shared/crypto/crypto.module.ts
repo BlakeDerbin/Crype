@@ -13,6 +13,7 @@ import { CryptoSearchbarComponent } from './crypto-search/crypto-searchbar.compo
 import { ReactiveFormsModule } from "@angular/forms";
 import { CryptoMarketstatsComponent } from './crypto-marketstats/crypto-marketstats.component';
 import { MarketStatsResolver } from "~app/components-shared/crypto/resolvers/market-stats.resolver";
+import { CurrencyShortenerPipe } from "~app/components-shared/pipes/currency-sufix.pipe";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { MarketStatsResolver } from "~app/components-shared/crypto/resolvers/mar
     CryptoDetailsComponent,
     CryptoPerformersComponent,
     CryptoSearchbarComponent,
-    CryptoMarketstatsComponent
+    CryptoMarketstatsComponent,
+    CurrencyShortenerPipe
   ],
   exports: [
     CryptoPerformersComponent,
@@ -34,7 +36,7 @@ import { MarketStatsResolver } from "~app/components-shared/crypto/resolvers/mar
     CryptoRoutingModule,
     MaterialModules,
     NgApexchartsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [ DetailsResolver, MarketDataResolver, MarketStatsResolver ]
 })

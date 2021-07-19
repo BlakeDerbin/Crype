@@ -13,7 +13,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,7 +25,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MaterialModules
   ],
   exports: [
-    NavbarComponent
+    NavbarComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]
