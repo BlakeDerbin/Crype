@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {Subject, Subscription} from "rxjs";
-import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
-import {CryptoControllerService} from "~app/components-services/crypto/crypto-controller.service";
-import {ActivatedRoute} from "@angular/router";
-import {takeUntil} from "rxjs/operators";
+import { Subject } from "rxjs";
+import { BreakpointObserver , Breakpoints } from "@angular/cdk/layout";
+import { ActivatedRoute } from "@angular/router";
+import { takeUntil } from "rxjs/operators";
+import { KeyValue } from "@angular/common";
 import IglobalStats from "~app/components-services/crypto/IglobalStats.model";
-import {KeyValue} from "@angular/common";
-import {CurrencyrateControllerService} from "~app/components-services/crypto/currencyrate-controller.service";
-import IcurrencyRate from "~app/components-services/crypto/IcurrencyRate";
+
 
 @Component({
   selector: 'app-crypto-marketstats',
@@ -16,11 +14,9 @@ import IcurrencyRate from "~app/components-services/crypto/IcurrencyRate";
 })
 export class CryptoMarketstatsComponent implements OnInit {
 
-  cryptoSubscription: Subscription;
   desktopView: boolean;
-  currencyData = new Array<IcurrencyRate>();
   globalStatsData = new Array<IglobalStats>();
-  marketChangeData = new Array();
+  marketChangeData = [];
   destroyed = new Subject<void>();
   currentScreenSize: string = 'Large';
 
@@ -32,11 +28,7 @@ export class CryptoMarketstatsComponent implements OnInit {
     [Breakpoints.Large, 'Large'],
   ])
 
-  constructor(
-    private cryptoService: CryptoControllerService,
-    private currencyService: CurrencyrateControllerService,
-    private breakpointObserver: BreakpointObserver,
-    private route: ActivatedRoute) {
+  constructor(private breakpointObserver: BreakpointObserver, private route: ActivatedRoute) {
     // on loading gets data from resolver, used to preload data
     this.globalStatsData.push((this.route.snapshot.data['stats'])['data'])
     this.marketChangeData = ((this.route.snapshot.data['stats'])['data']['market_cap_percentage'])
