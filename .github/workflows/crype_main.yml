@@ -22,4 +22,4 @@ jobs:
           build_configuration: production 
           base_href: /Crype/  
           deploy_branch: master 
-          angular_dist_build_folder: dist/Crype
+          angular_dist_build_folder: docs/
