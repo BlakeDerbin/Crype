@@ -6,7 +6,7 @@ name: CI
 # events but only for the master branch
 on:
   push:
-    branches: 
+    branches:
     - master
 jobs:
   build:
@@ -18,8 +18,8 @@ jobs:
       - name: npm build production
         uses: AhsanAyaz/angular-deploy-gh-pages-actions@v1.3.2
         with:
-          github_access_token: ${{ secrets.GITHUB_TOKEN  }} 
-          build_configuration: production 
-          base_href: /Crype/  
-          deploy_branch: master 
-          angular_dist_build_folder: docs/
+          github_access_token: ${{ secrets.GITHUB_TOKEN  }}
+          build_configuration: production
+          base_href: /Crype/
+          deploy_branch: gh-pages
+          angular_dist_build_folder: dist/crype
