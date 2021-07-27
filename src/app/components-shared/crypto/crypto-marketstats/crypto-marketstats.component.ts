@@ -6,6 +6,8 @@ import {ActivatedRoute} from "@angular/router";
 import {takeUntil} from "rxjs/operators";
 import IglobalStats from "~app/components-services/crypto/IglobalStats.model";
 import {KeyValue} from "@angular/common";
+import {CurrencyrateControllerService} from "~app/components-services/crypto/currencyrate-controller.service";
+import IcurrencyRate from "~app/components-services/crypto/IcurrencyRate";
 
 @Component({
   selector: 'app-crypto-marketstats',
@@ -14,8 +16,9 @@ import {KeyValue} from "@angular/common";
 })
 export class CryptoMarketstatsComponent implements OnInit {
 
-  subscription: Subscription;
+  cryptoSubscription: Subscription;
   desktopView: boolean;
+  currencyData = new Array<IcurrencyRate>();
   globalStatsData = new Array<IglobalStats>();
   marketChangeData = new Array();
   destroyed = new Subject<void>();
@@ -29,7 +32,11 @@ export class CryptoMarketstatsComponent implements OnInit {
     [Breakpoints.Large, 'Large'],
   ])
 
-  constructor(private service: CryptoControllerService, private breakpointObserver: BreakpointObserver, private route: ActivatedRoute) {
+  constructor(
+    private cryptoService: CryptoControllerService,
+    private currencyService: CurrencyrateControllerService,
+    private breakpointObserver: BreakpointObserver,
+    private route: ActivatedRoute) {
     // on loading gets data from resolver, used to preload data
     this.globalStatsData.push((this.route.snapshot.data['stats'])['data'])
     this.marketChangeData = ((this.route.snapshot.data['stats'])['data']['market_cap_percentage'])
@@ -54,19 +61,32 @@ export class CryptoMarketstatsComponent implements OnInit {
 
   ngOnInit(): void {
     // changes the currency type in the service
-    this.subscription = this.service.selectedCurrency.subscribe(
-      () => {
+    this.cryptoSubscription = this.cryptoService.selectedCurrency.subscribe(
+      (currency: string) => {
+        this.getCurrencyRate(currency);
         this.getEndpointData();
       }
     );
   }
 
+  private getCurrencyRate(currency: string) {
+    currency == null || undefined ? currency = 'USD' : currency;
+    this.currencyService.currencyRate(currency).subscribe(data => {
+        this.currencyData = data['rates']
+        //console.log(this.currencyData)
+      },
+      error => {
+        console.error("error: can't fetch endpoint data!")
+      }
+    );
+  }
+
   private getEndpointData() {
-    this.service.getGlobalMarketStats().subscribe(data => {
+    this.cryptoService.getGlobalMarketStats().subscribe(data => {
         console.log("fetching global stats...")
         this.globalStatsData = []
         this.globalStatsData.push(data['data']);
-        console.log(this.globalStatsData)
+        //console.log(this.globalStatsData)
       },
       error => {
         console.error("error: can't fetch endpoint data!")
@@ -80,7 +100,7 @@ export class CryptoMarketstatsComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.cryptoSubscription.unsubscribe();
     this.destroyed.next();
     this.destroyed.complete();
   }
