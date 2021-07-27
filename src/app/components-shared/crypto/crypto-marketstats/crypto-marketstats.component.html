@@ -19,8 +19,8 @@
     </div>
   </div>
   <div><h4>BTC dominance: {{stat.market_cap_percentage.btc | number:'1.0-2'}}%</h4></div>
-  <div><h4>Total marketcap: {{stat.total_market_cap.usd | currencyShortener:3}}</h4></div>
-  <div><h4>Total 24hr volume: {{stat.total_volume.usd | currencyShortener:3}}</h4></div>
+  <div><h4>Total marketcap: {{(stat.total_market_cap.usd | currencyConverter)| currencyShortener:3}}</h4></div>
+  <div><h4>Total 24hr volume: {{(stat.total_volume.usd | currencyConverter )| currencyShortener:3}}</h4></div>
 <!--  <h4>Top 3 dominant Cryptocurrencies:</h4>
   <div id="stats-col2" *ngFor="let val of stat.market_cap_percentage | keyvalue: valueAscOrder | slice:0:3; let i=index">
     <p>{{i+1}}: {{val.key | uppercase}} {{val.value | number:'1.0-2'}}%</p>

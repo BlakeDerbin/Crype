@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { CryptoMarketstatsComponent } from './crypto-marketstats/crypto-marketstats.component';
 import { MarketStatsResolver } from "~app/components-shared/crypto/resolvers/market-stats.resolver";
 import { CurrencyShortenerPipe } from "~app/components-shared/pipes/currency-sufix.pipe";
+import { CurrencyConverterPipe } from "~app/components-shared/pipes/currency-converter.pipe";
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { CurrencyShortenerPipe } from "~app/components-shared/pipes/currency-suf
     CryptoPerformersComponent,
     CryptoSearchbarComponent,
     CryptoMarketstatsComponent,
-    CurrencyShortenerPipe
+    CurrencyShortenerPipe,
+    CurrencyConverterPipe
   ],
   exports: [
     CryptoPerformersComponent,
