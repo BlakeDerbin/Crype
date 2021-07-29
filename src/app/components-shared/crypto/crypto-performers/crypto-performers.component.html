@@ -10,7 +10,7 @@
           class="col-inner-2">
           <span>{{element.name}}</span>
           <span>Market cap: {{element.market_cap_rank}}</span>
-          <span>Current price: {{element.current_price | currency}}</span>
+          <span>Current price: {{(element.current_price | currencyConverter) | currency}}</span>
           <div fxLayout="row">24hr change:
             <div [ngClass]="{
                         'cell-negative': element.market_cap_change_percentage_24h < 0,
@@ -19,12 +19,12 @@
             >
               <div *ngIf="element.market_cap_change_percentage_24h > 0" fxLayout="row" >
                 <mat-icon class="change-icon" fxFlex="15%">arrow_drop_up</mat-icon>
-                <div fxFlex="85%">{{element.market_cap_change_percentage_24h | number:'1.0-2'}}%</div>
+                <div fxFlex="85%">{{(element.market_cap_change_percentage_24h | currencyConverter:true) | number:'1.0-2'}}%</div>
               </div>
 
               <div *ngIf="element.market_cap_change_percentage_24h < 0" fxLayout="row" >
                 <mat-icon class="change-icon" fxFlex="15%">arrow_drop_down</mat-icon>
-                <div fxFlex="85%">{{element.market_cap_change_percentage_24h | number:'1.0-2'}}%</div>
+                <div fxFlex="85%">{{(element.market_cap_change_percentage_24h | currencyConverter:true) | number:'1.0-2'}}%</div>
               </div>
             </div>
           </div>
@@ -47,21 +47,21 @@
           class="col-inner-2">
           <span>{{element.name}}</span>
           <span>Market cap: {{element.market_cap_rank}}</span>
-          <span>Current price: {{element.current_price | currency}}</span>
+          <span>Current price: {{(element.current_price | currencyConverter) | currency}}</span>
           <div fxLayout="row">24hr change:
             <div [ngClass]="{
-                        'cell-negative': element.market_cap_change_percentage_24h < 0,
-                        'cell-positive': element.market_cap_change_percentage_24h > 0
+                        'cell-negative': element.price_change_percentage_24h < 0,
+                        'cell-positive': element.price_change_percentage_24h > 0
                       }"
             >
-              <div *ngIf="element.market_cap_change_percentage_24h > 0" fxLayout="row" >
+              <div *ngIf="element.price_change_percentage_24h > 0" fxLayout="row" >
                 <mat-icon class="change-icon" fxFlex="15%">arrow_drop_up</mat-icon>
-                <div fxFlex="85%">{{element.market_cap_change_percentage_24h | number:'1.0-2'}}%</div>
+                <div fxFlex="85%">{{(element.price_change_percentage_24h | currencyConverter:true) | number:'1.0-2'}}%</div>
               </div>
 
-              <div *ngIf="element.market_cap_change_percentage_24h < 0" fxLayout="row" >
+              <div *ngIf="element.price_change_percentage_24h < 0" fxLayout="row" >
                 <mat-icon class="change-icon" fxFlex="15%">arrow_drop_down</mat-icon>
-                <div fxFlex="85%">{{element.market_cap_change_percentage_24h | number:'1.0-2'}}%</div>
+                <div fxFlex="85%">{{(element.price_change_percentage_24h | currencyConverter:true) | number:'1.0-2'}}%</div>
               </div>
             </div>
           </div>
