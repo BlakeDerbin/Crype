@@ -12,8 +12,6 @@ export class CurrencyConverterPipe implements PipeTransform {
   usdValue: number;
   value: string;
   operationSelect: string;
-  currencySwitchEvent: Subscription;
-  currencySubscription: Subscription;
 
   //subscribes to the currency event change and triggers the pipe transformation
   constructor(service: CryptoControllerService, currencyService: CurrencyrateControllerService) {
@@ -22,8 +20,8 @@ export class CurrencyConverterPipe implements PipeTransform {
     !this.usdValue ? this.usdValue = 1 : null;
 
     // subscribes whens the currency is switched
-    this.currencySwitchEvent = service.selectedCurrency.subscribe((currency) => {
-      this.currencySubscription = currencyService.currencyRate().subscribe((data) => {
+    service.selectedCurrency.subscribe((currency) => {
+      currencyService.currencyRate().subscribe((data) => {
         this.currencyValue = currency
         this.usdValue = data['rates'][this.currencyValue]
       });
@@ -39,9 +37,7 @@ export class CurrencyConverterPipe implements PipeTransform {
     if (percent && this.currencyValue !== "USD") {
       let inputValue: number = value
       let returnPercentage = (inputValue - this.usdValue) / (inputValue)
-      returnPercentage = inputValue * returnPercentage / 10
-      console.log("return percent: ", inputValue + returnPercentage)
-      return inputValue + returnPercentage
+      return inputValue + (inputValue * (returnPercentage / 10))
     } else if (percent) {
       console.log("in: ", value)
       return value

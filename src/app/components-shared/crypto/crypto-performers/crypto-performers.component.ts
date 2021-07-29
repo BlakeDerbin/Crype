@@ -77,7 +77,7 @@ export class CryptoPerformersComponent implements OnInit {
 
   //**
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    //this.subscription.unsubscribe();
     this.destroyed.next();
     this.destroyed.complete();
   }
