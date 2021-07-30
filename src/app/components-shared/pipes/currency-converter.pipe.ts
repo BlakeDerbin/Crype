@@ -10,7 +10,7 @@ import {CurrencyrateControllerService} from "~app/components-services/crypto/cur
 export class CurrencyConverterPipe implements PipeTransform {
   currencyValue: string;
   usdValue: number;
-  value: string;
+  value: number;
   operationSelect: string;
 
   //subscribes to the currency event change and triggers the pipe transformation
@@ -29,23 +29,15 @@ export class CurrencyConverterPipe implements PipeTransform {
     });
   }
 
-  transform(value, percent?: boolean) {
-    console.log("value: ", value, this.usdValue)
+  transform(numberInput, percent?: boolean) {
     if (!percent) {
-      return Number(value) * this.usdValue;
+      return numberInput * this.usdValue;
     }
     if (percent && this.currencyValue !== "USD") {
-      let inputValue: number = value
-      let returnPercentage = (inputValue - this.usdValue) / (inputValue)
-      return inputValue + (inputValue * (returnPercentage / 10))
+      let returnPercentage = (numberInput - this.usdValue) / (numberInput)
+      return numberInput + (numberInput * (returnPercentage / 10))
     } else if (percent) {
-      console.log("in: ", value)
-      return value
+      return numberInput
     }
-  }
-
-  ngOnDestroy() {
-    //this.currencySwitchEvent.unsubscribe();
-    //this.currencySubscription.unsubscribe();
   }
 }

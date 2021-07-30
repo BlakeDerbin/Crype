@@ -36,7 +36,7 @@ export class CryptoControllerService {
   }
 
   getMarketData(): Observable<Array<IcryptoMarket>> {
-    return this.http.get<Array<IcryptoMarket>>(this.baseURL + 'coins/markets?vs_currency=' + this.currency + '&order=market_cap_desc&per_page=30&page=1&sparkline=false');
+    return this.http.get<Array<IcryptoMarket>>(this.baseURL + 'coins/markets?vs_currency=' + this.currency + '&order=market_cap_desc&per_page=50&page=1&sparkline=false');
   }
 
   getCryptoDetails(id: string) {

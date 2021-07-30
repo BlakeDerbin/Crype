@@ -19,12 +19,12 @@
             >
               <div *ngIf="element.market_cap_change_percentage_24h > 0" fxLayout="row" >
                 <mat-icon class="change-icon" fxFlex="15%">arrow_drop_up</mat-icon>
-                <div fxFlex="85%">{{(element.market_cap_change_percentage_24h | currencyConverter:true) | number:'1.0-2'}}%</div>
+                <div fxFlex="85%">{{(element.price_change_percentage_24h | currencyConverter:true) | number:'1.0-2'}}%</div>
               </div>
 
               <div *ngIf="element.market_cap_change_percentage_24h < 0" fxLayout="row" >
                 <mat-icon class="change-icon" fxFlex="15%">arrow_drop_down</mat-icon>
-                <div fxFlex="85%">{{(element.market_cap_change_percentage_24h | currencyConverter:true) | number:'1.0-2'}}%</div>
+                <div fxFlex="85%">{{(element.price_change_percentage_24h | currencyConverter:true) | number:'1.0-2'}}%</div>
               </div>
             </div>
           </div>

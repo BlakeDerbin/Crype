@@ -1,14 +1,4 @@
 <mat-card>
-<!--  <span>-->
-<!--    <mat-form-field appearance="outline" class="currencySelect">-->
-<!--      <mat-label>Select a currency</mat-label>-->
-<!--      <mat-select [(value)]="selectedCurrency">-->
-<!--        <mat-option value="usd">USD</mat-option>-->
-<!--        <mat-option value="aud">AUD</mat-option>-->
-<!--        <mat-option value="cad">CAD</mat-option>-->
-<!--      </mat-select>-->
-<!--    </mat-form-field>-->
-<!--  </span>-->
   <table
     mat-table [dataSource]="dataSource"
     matSort class="cryptoTable"
@@ -151,5 +141,9 @@
       mat-row *matRowDef="let row; columns: displayedColumns;"
     ></tr>
   </table>
-  <br>
+  <mat-paginator
+    [pageSizeOptions]="[5,10,25,50]"
+    [pageSize]="10"
+    aria-label="Select crypto list page">
+  </mat-paginator>
 </mat-card>

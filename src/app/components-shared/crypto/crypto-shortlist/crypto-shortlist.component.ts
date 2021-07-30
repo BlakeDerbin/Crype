@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import IcryptoMarket from "../../../components-services/crypto/ImarketData.model";
-import {Subject, Subscription} from "rxjs";
+import { Subject, Subscription } from "rxjs";
 import { MatTableDataSource } from "@angular/material/table";
 import { MatSort } from "@angular/material/sort";
 import { CryptoControllerService } from "../../../components-services/crypto/crypto-controller.service";
-import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
-import {takeUntil} from "rxjs/operators";
-import {ActivatedRoute} from "@angular/router";
+import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
+import { takeUntil } from "rxjs/operators";
+import { ActivatedRoute } from "@angular/router";
+import { MatPaginator } from "@angular/material/paginator";
 
 export const cryptoColumnsDesktop: string[] = [
   'market_cap_rank', 'name', 'symbol', 'price_change_percentage_24h',
@@ -49,9 +50,11 @@ export class CryptoShortlistComponent implements OnInit {
     [Breakpoints.XLarge, 'xLarge']
   ])
 
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
