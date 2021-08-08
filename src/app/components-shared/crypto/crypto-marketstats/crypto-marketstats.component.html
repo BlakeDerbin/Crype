@@ -1,7 +1,6 @@
 <div *ngFor="let stat of globalStatsData; let i=index" class="marketstats-data">
-  <h2>Global market stats</h2>
-  <div fxLayout="row">
-    <h4>24hr marketcap change: </h4>
+  <div fxLayout="row" fxLayoutAlign="center">
+    <h3>24hr marketcap change: </h3>
     <div [ngClass]="{
                         'cell-negative': stat.market_cap_change_percentage_24h_usd < 0,
                         'cell-positive': stat.market_cap_change_percentage_24h_usd > 0
@@ -18,11 +17,13 @@
       </div>
     </div>
   </div>
-  <div><h4>BTC dominance: {{stat.market_cap_percentage.btc | number:'1.0-2'}}%</h4></div>
-  <div><h4>Total marketcap: {{(stat.total_market_cap.usd | currencyConverter)| currencyShortener:3}}</h4></div>
-  <div><h4>Total 24hr volume: {{(stat.total_volume.usd | currencyConverter )| currencyShortener:3}}</h4></div>
-<!--  <h4>Top 3 dominant Cryptocurrencies:</h4>
-  <div id="stats-col2" *ngFor="let val of stat.market_cap_percentage | keyvalue: valueAscOrder | slice:0:3; let i=index">
-    <p>{{i+1}}: {{val.key | uppercase}} {{val.value | number:'1.0-2'}}%</p>
-  </div>-->
+  <div fxLayout="row" fxLayoutAlign="center">
+    <h3>BTC dominance: {{stat.market_cap_percentage.btc | number:'1.0-2'}}%</h3>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="center">
+    <h3>Total marketcap: {{(stat.total_market_cap.usd | currencyConverter)| currencyShortener:3}}</h3>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="center">
+    <h3>Total 24hr volume: {{(stat.total_volume.usd | currencyConverter )| currencyShortener:3}}</h3>
+  </div>
 </div>
