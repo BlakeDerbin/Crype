@@ -2,8 +2,11 @@
   margin-top: 50px;
 }
 
-.change-icon::ng-deep {
-  height: 5px;
-  width: 5px;
-  margin-right: 20px;
+.num-percent {
+  margin-top: 5px;
+  .change-icon::ng-deep {
+    height: 5px;
+    width: 5px;
+    margin-right: 20px;
+  }
 }
