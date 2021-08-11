@@ -47,7 +47,7 @@
           class="col-inner-2">
           <span>{{element.name}}</span>
           <span>Market cap: {{element.market_cap_rank}}</span>
-          <span>Current price: {{(element.current_price | currencyConverter) | currency}}</span>
+          <span>Current price: {{element.current_price | currency}}</span>
           <div fxLayout="row">24hr change:
             <div [ngClass]="{
                         'cell-negative': element.price_change_percentage_24h < 0,

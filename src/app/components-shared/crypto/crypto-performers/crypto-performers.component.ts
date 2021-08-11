@@ -57,11 +57,11 @@ export class CryptoPerformersComponent implements OnInit {
 
   ngOnInit(): void {
     // changes the currency type in the service
-    //this.subscription = this.service.selectedCurrency.subscribe(
-    //  () => {
-    //    this.getEndpointData();
-    //  }
-    //);
+    this.subscription = this.service.selectedCurrency.subscribe(
+      () => {
+        this.getEndpointData();
+      }
+    );
   }
 
   private getEndpointData() {
