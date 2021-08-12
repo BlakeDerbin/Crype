@@ -7,6 +7,10 @@ html, body, app-root, .app-frame {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.mat-toolbar {
+  background-color: #212121 !important;
+}
+
 .mat-card {
   //opacity: 90%;
   background-color: #212121 !important;
