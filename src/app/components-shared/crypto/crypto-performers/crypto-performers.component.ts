@@ -36,7 +36,7 @@ export class CryptoPerformersComponent implements OnInit {
   constructor(private service: CryptoControllerService, private breakpointObserver: BreakpointObserver, private route: ActivatedRoute) {
     // on loading gets data from resolver, used to preload data
     this.cryptoData = this.route.snapshot.data['list'].slice(0,3)
-    console.log(this.cryptoData)
+    //console.log(this.cryptoData)
 
     this.desktopView = true;
     breakpointObserver.observe([

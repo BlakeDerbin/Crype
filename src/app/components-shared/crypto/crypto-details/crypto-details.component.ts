@@ -223,7 +223,7 @@ export class CryptoDetailsComponent implements OnInit {
           enabled: false,
           autoScaleYaxis: true
         },
-        background: '#212121',
+        background: '#0f141c',
         toolbar: {
           show: false,
           //autoSelected: "zoom"

@@ -1,31 +1,41 @@
 html, body, app-root, .app-frame {
-  height: 100%;
   //background-color: rgb(50, 50, 50);
-  background-color: #121212;
+  //background-color: #121212;
+  height: 100%;
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 70%);
+  overflow: initial;
   color: #ffffff;
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 .mat-toolbar {
-  background-color: #212121 !important;
+  background-color: #0f141c !important;
 }
 
 .mat-card {
-  //opacity: 90%;
-  background-color: #212121 !important;
+  opacity: 90%;
+  background-color: #0f141c !important;
 }
 
 .mat-table {
-  background-color: #212121 !important;
+  background-color: #0f141c !important;
 }
 
 .mat-paginator {
-  background-color: #212121 !important;
+  background-color: #0f141c !important;
 }
 
-.mat-menu::ng-deep {
-  background-color: #212121 !important;
+.mat-menu-panel {
+  background-color: #0f141c !important;
+}
+
+.mat-autocomplete-panel {
+  background-color: #0f141c !important;
+}
+
+.cdk-overlay-pane::ng-deep {
+  background-color: #0f141c !important;
 }
 
 .body-content {
