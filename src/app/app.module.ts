@@ -9,11 +9,13 @@ import { CryptoModule } from "./components-shared/crypto/crypto.module";
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { BackgroundComponent } from './components-shared/background/background.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
+    BackgroundComponent,
   ],
   imports: [
     BrowserModule,
