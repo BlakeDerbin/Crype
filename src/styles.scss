@@ -2,7 +2,7 @@ html, body, app-root, .app-frame {
   //background-color: rgb(50, 50, 50);
   //background-color: #121212;
   height: 100%;
-  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 70%);
+  background: radial-gradient(farthest-corner, #1b2735 0%, #090a0f 70%);
   overflow: initial;
   color: #ffffff;
   margin: 0;
@@ -19,6 +19,10 @@ html, body, app-root, .app-frame {
 }
 
 .mat-table {
+  background-color: #0f141c !important;
+}
+
+.mat-select-panel {
   background-color: #0f141c !important;
 }
 

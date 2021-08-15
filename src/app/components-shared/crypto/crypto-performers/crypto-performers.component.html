@@ -9,7 +9,7 @@
         <div
           class="col-inner-2">
           <span>{{element.name}}</span>
-          <span>Market cap: {{element.market_cap_rank}}</span>
+          <span>Market cap: {{(element.market_cap | currencyConverter) | currencyShortener:3}}</span>
           <span>Current price: {{(element.current_price | currencyConverter) | currency}}</span>
           <div fxLayout="row">24hr change:
             <div [ngClass]="{
@@ -46,7 +46,7 @@
           fxLayout="column"
           class="col-inner-2">
           <span>{{element.name}}</span>
-          <span>Market cap: {{element.market_cap_rank}}</span>
+          <span>Market cap: {{(element.market_cap | currencyConverter) | currencyShortener:3}}</span>
           <span>Current price: {{element.current_price | currency}}</span>
           <div fxLayout="row">24hr change:
             <div [ngClass]="{
