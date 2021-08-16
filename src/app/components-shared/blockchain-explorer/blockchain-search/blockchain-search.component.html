@@ -1,1 +1,12 @@
-<p>blockchain-search works!</p>
+<form class="example-form">
+  <mat-form-field class="block-search" appearance="fill">
+    <div fxFlex fxLayout="row">
+      <div class="material-icons">search</div>
+      <input type="text"
+             placeholder="Search a transaction, a block or wallet"
+             aria-label="blockchain search"
+             matInput
+             [formControl]="blockSearch">
+    </div>
+  </mat-form-field>
+</form>

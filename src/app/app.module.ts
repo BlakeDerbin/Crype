@@ -12,6 +12,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { BackgroundComponent } from './components-shared/background/background.component';
 import { BlockchainExplorerComponent } from './components-shared/blockchain-explorer/blockchain-explorer.component';
 import { BlockchainSearchComponent } from './components-shared/blockchain-explorer/blockchain-search/blockchain-search.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { BlockchainSearchComponent } from './components-shared/blockchain-explor
     AppRoutingModule,
     FlexLayoutModule,
     CryptoModule,
-    MaterialModules
+    MaterialModules,
+    ReactiveFormsModule
   ],
   exports: [
     NavbarComponent,

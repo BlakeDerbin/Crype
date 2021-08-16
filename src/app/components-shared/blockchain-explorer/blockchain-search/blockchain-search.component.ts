@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from "@angular/forms";
 
 @Component({
   selector: 'app-blockchain-search',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./blockchain-search.component.scss']
 })
 export class BlockchainSearchComponent implements OnInit {
+
+  blockSearch = new FormControl()
 
   constructor() { }
 
