@@ -10,12 +10,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BackgroundComponent } from './components-shared/background/background.component';
+import { BlockchainExplorerComponent } from './components-shared/blockchain-explorer/blockchain-explorer.component';
+import { BlockchainSearchComponent } from './components-shared/blockchain-explorer/blockchain-search/blockchain-search.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     BackgroundComponent,
+    BlockchainExplorerComponent,
+    BlockchainSearchComponent,
   ],
   imports: [
     BrowserModule,
