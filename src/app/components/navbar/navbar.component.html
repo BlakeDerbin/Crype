@@ -8,14 +8,14 @@
     </button>
   </div>
 
-  <div fxFlex>
+  <div>
     <button mat-button [matMenuTriggerFor]="currencyMenu">{{selectedCurrency}}</button>
     <mat-menu #currencyMenu="matMenu">
       <button mat-menu-item  *ngFor="let cur of currencies" (click)="changeCurrency(cur)">{{cur}}</button>
     </mat-menu>
   </div>
 
-  <div fxFlex>
+  <div>
     <button mat-button routerLink="blockchainexplorer">Explorer</button>
   </div>
 

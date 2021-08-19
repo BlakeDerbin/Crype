@@ -2,3 +2,13 @@
   font-size: small;
   float: right;
 }
+
+.search-formfield {
+  max-width: 180px;
+}
+
+@media only screen and (max-width: 600px)  {
+  .search-formfield {
+    max-width:120px
+  }
+}
