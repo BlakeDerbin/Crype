@@ -1,4 +1,21 @@
 <mat-toolbar fxLayout="row">
+  <div class="mobile-menu">
+    <button mat-button [matMenuTriggerFor]="menu" aria-label="crype menu button">
+      <mat-icon>menu</mat-icon>
+      <span id="title">Crype</span>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink="">
+        <mat-icon>home</mat-icon>
+        <span>Home</span>
+      </button>
+      <button mat-menu-item routerLink="blockchainexplorer">
+        <mat-icon>manage_search</mat-icon>
+        <span>Block explorer</span>
+      </button>
+    </mat-menu>
+  </div>
+
   <div class="navbar-title" fxFlex="70px">
     <button
       mat-button
@@ -15,7 +32,7 @@
     </mat-menu>
   </div>
 
-  <div>
+  <div class="desktop-button">
     <button mat-button routerLink="blockchainexplorer">Explorer</button>
   </div>
 

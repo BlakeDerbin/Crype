@@ -14,3 +14,29 @@
   //background: #656D78;
   margin-bottom: 1.5%;
 }
+
+// mobile
+@media screen and (max-width : 700px) {
+  .mobile-menu {
+    display: flex;
+    #title {
+      margin-left: 10px;
+    }
+  }
+  .desktop-button {
+    display: none;
+  }
+  .navbar-title {
+    display: none;
+  }
+}
+
+// desktop
+@media screen and (min-width : 700px) {
+  .mobile-menu {
+    display: none;
+  }
+  .desktop-button {
+    display: flex;
+  }
+}
