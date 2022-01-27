@@ -15,6 +15,7 @@ import { CryptoMarketstatsComponent } from './crypto-marketstats/crypto-marketst
 import { MarketStatsResolver } from "~app/components-shared/crypto/resolvers/market-stats.resolver";
 import { CurrencyShortenerPipe } from "~app/components-shared/pipes/currency-sufix.pipe";
 import { CurrencyConverterPipe } from "~app/components-shared/pipes/currency-converter.pipe";
+import { CryptoCandleChartComponent } from './crypto-candle-chart/crypto-candle-chart.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { CurrencyConverterPipe } from "~app/components-shared/pipes/currency-con
     CryptoSearchbarComponent,
     CryptoMarketstatsComponent,
     CurrencyShortenerPipe,
-    CurrencyConverterPipe
+    CurrencyConverterPipe,
+    CryptoCandleChartComponent
   ],
   exports: [
     CryptoPerformersComponent,

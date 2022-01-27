@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import IcryptoMarket from "./ImarketData.model";
 import IcryptoDetails from "./IcryptoDetails.model";
 import IglobalStats from "~app/components-services/crypto/IglobalStats.model";
+import IcryptoOhlc from './IcryptoOhlc.model';
 
 @Injectable({
   providedIn: 'root'
@@ -45,5 +46,9 @@ export class CryptoControllerService {
 
   getGlobalMarketStats(): Observable<Array<IglobalStats>> {
     return this.http.get<Array<IglobalStats>>(this.baseURL + 'global')
+  }
+ 
+  getCoinOhlc(id: string, days: number) {
+    return this.http.get<Array<IcryptoOhlc>>(this.baseURL + 'coins/' + id + '/ohlc?vs_currency=' + this.currency + '&days=' + days )
   }
 }
