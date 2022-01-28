@@ -1,1 +1,19 @@
-<p>crypto-candle-chart works!</p>
+<div class="chartContainer">
+  <button mat-button [matMenuTriggerFor]="chartDayMenu">{{selected_chartDay}}</button>
+  <mat-menu #chartDayMenu="matMenu">
+    <button mat-menu-item  *ngFor="let chartDay of day_to_hours" (click)="changeChartDay(chartDay)">{{chartDay[1]}}</button>
+  </mat-menu>
+    <apx-chart
+    [series]="chartOptions.series"
+    [chart]="chartOptions.chart"
+    [dataLabels]="chartOptions.dataLabels"
+    [markers]="chartOptions.markers"
+    [title]="chartOptions.title"
+    [fill]="chartOptions.fill"
+    [yaxis]="chartOptions.yaxis"
+    [xaxis]="chartOptions.xaxis"
+    [tooltip]="chartOptions.tooltip"
+    [theme]="chartOptions.theme"
+    [autoUpdateSeries]="false"
+    ></apx-chart>
+  </div>

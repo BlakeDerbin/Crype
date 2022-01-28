@@ -63,10 +63,10 @@
       </div>
     </div>
     <br>
-
-    <h3 class="crypto-title">7 day price data</h3>
-    <div class="chartContainer" *ngIf="sparkline_data.length > 0">
-      <apx-chart
+      <app-crypto-candle-chart [cryptoID]="id"></app-crypto-candle-chart>
+<!--       <h3 class="crypto-title">{{chartDay[0]}} day price data</h3>
+      <div class="chartContainer" *ngIf="sparkline_data.length > 0">
+        <apx-chart
         [series]="chartOptions.series"
         [chart]="chartOptions.chart"
         [dataLabels]="chartOptions.dataLabels"
@@ -78,8 +78,8 @@
         [tooltip]="chartOptions.tooltip"
         [theme]="chartOptions.theme"
         [autoUpdateSeries]="false"
-      ></apx-chart>
-    </div>
+        ></apx-chart>
+      </div> -->
   </div>
 
 </mat-card>

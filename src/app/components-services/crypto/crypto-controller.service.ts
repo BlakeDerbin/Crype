@@ -48,7 +48,7 @@ export class CryptoControllerService {
     return this.http.get<Array<IglobalStats>>(this.baseURL + 'global')
   }
  
-  getCoinOhlc(id: string, days: number) {
-    return this.http.get<Array<IcryptoOhlc>>(this.baseURL + 'coins/' + id + '/ohlc?vs_currency=' + this.currency + '&days=' + days )
+  getCoinOhlc(id: string, days: number): Observable<Array<IcryptoOhlc>> {
+    return this.http.get<Array<IcryptoOhlc>>(this.baseURL + 'coins/' + id + '/ohlc?vs_currency=' + this.currency.toLowerCase() + '&days=' + days )
   }
 }
